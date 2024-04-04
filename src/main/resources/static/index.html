@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTTPS Button with Image</title>
+</head>
+<body>
+<!-- HTTPS 버튼 이미지를 포함한 링크 -->
+<a href="/login">
+    <button style="background-color: transparent; border: none; padding: 0; margin: 0;">
+        <img src="/img/kakao_login_medium_narrow.png" alt="Kakao Login" style="width: 100px; height: auto;">
+    </button>
+    <form action="http://localhost:8080/logout" method="get">
+        <button type="submit">로그아웃</button>
+    </form>
+</a>
+</body>
+</html>
