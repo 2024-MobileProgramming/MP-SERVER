@@ -18,6 +18,7 @@ dependencies {
     //spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     //lombok
@@ -27,15 +28,15 @@ dependencies {
     //h2
     runtimeOnly 'com.h2database:h2'
 
-    // security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    testImplementation 'org.springframework.security:spring-security-test'
-
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.9'
+
 }
 
 test {
