@@ -21,13 +21,18 @@ public class LoginController {
     private KakaoService kakaoService;
 
     @RequestMapping(value = "/kakao/login")
-    public String kakaoLogin(@RequestParam("code") String code, HttpSession session) throws Exception {
-        log.info("로그인실행");
-        String access_token = kakaoService.getToken(code);
-        log.info("access_token : " + access_token);
-        return "LOGIN_SUCCESS.html";
-    }
+    public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) throws Exception {
 
+        //code로 토큰 받음
+        String access_token = kakaoService.getToken(code);
+        log.info("토큰 받아오기 성공 : " + access_token);
+
+        //토큰으로 사용자 정보 담은 list 가져오기
+        ArrayList<Object> list = kakaoService.getUserInfo(access_token);
+        log.info("사용자 정보 받아오기 성공");
+        model.addAttribute("list", list);
+        return "";
+    }
 
     @GetMapping("/")
     public String Home() {
@@ -49,16 +54,4 @@ public class LoginController {
         return "redirect:" + url.toString();
     }
 
-    @RequestMapping(value = "/kakao")
-    public String kakaoLogin(@RequestParam("code") String code, Model model, HttpSession session) throws Exception {
-//https://record1996.tistory.com/25
-        String access_token = kakaoService.getToken(code);
-
-        ArrayList<Object> list = kakaoService.getUserInfo(access_token);
-
-
-        model.addAttribute("list", list);
-
-        return "userInfo.html";
-    }
 }
