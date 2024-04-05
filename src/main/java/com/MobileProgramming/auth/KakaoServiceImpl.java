@@ -41,7 +41,6 @@ public class KakaoServiceImpl implements KakaoService {
         sb.append("&redirect_uri=http://localhost:8080/kakao/login");
         sb.append("&code=" + code);
         bw.write(sb.toString());
-        log.info("연결" + sb);
 
         bw.flush();
 
@@ -100,19 +99,27 @@ public class KakaoServiceImpl implements KakaoService {
         System.out.println("----------properties" + properties);
         System.out.println("----------kakao_account" + kakao_account);
 
-        String thumbnail_image = properties.getAsJsonObject().get("thumbnail_image").getAsString();
+        String thumbnail_image = properties.getAsJsonObject().get("profile_image").getAsString();
         String ninkname = properties.getAsJsonObject().get("nickname").getAsString();
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
         String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
         String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+        String birthyear = kakao_account.getAsJsonObject().get("birthyear").getAsString();
+        String phone_number = kakao_account.getAsJsonObject().get("phone_number").getAsString();
+        String name = kakao_account.getAsJsonObject().get("name").getAsString();
 
+
+        list.add(birthyear);
+        list.add(phone_number);
         list.add(thumbnail_image);
         list.add(ninkname);
         list.add(email);
         list.add(birthday);
-        log.info("정보:" + String.valueOf(list));
+
+        log.info("사용자 정보:" + String.valueOf(list));
+
         return list;
-//
+//      DB저장하려면 위의 변수들로 저장 필요!
 //        //DB 저장
 //        Kakaouser kakaouser = new Kakaouser(ninkname,"1234",ninkname,email,gender,birthday);
 //        kakaoRepository.save(kakaouser);
