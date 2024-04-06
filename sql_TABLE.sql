@@ -1,39 +1,64 @@
 SHOW DATABASES;
-CREATE DATABASE MP;
 USE MP;
 SHOW tables;
 
-CREATE TABLE USER (
-    ID INT PRIMARY KEY auto_increment,
-    NAME VARCHAR(255),
-    EMAIL VARCHAR(255)
+CREATE TABLE User (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(255) NOT NULL,
+    user_nickname VARCHAR(255) NOT NULL,
+    user_profile LONGBLOB,
+    user_kakao_email VARCHAR(255) UNIQUE,
+    user_birthday VARCHAR(10),
+    user_birthyear VARCHAR(4),
+    user_phone VARCHAR(20) UNIQUE,
+    CONSTRAINT unique_user_info UNIQUE (user_name, user_nickname, user_kakao_email, user_phone)
 );
 
-CREATE TABLE GOAL (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    GOAL_STATEMENT TEXT
+
+CREATE TABLE Mission (
+    mission_id INT PRIMARY KEY AUTO_INCREMENT,
+    mission_name VARCHAR(255),
+    mission_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
-CREATE TABLE USER_GOAL (
-    User_ID INT,
-    Goal_ID INT,
-    PRIMARY KEY (User_ID, Goal_ID),
-    FOREIGN KEY (User_ID) REFERENCES USER(ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Goal_ID) REFERENCES GOAL(ID) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE Part_miss (
+    user_id INT,
+    mission_id INT,
+    mission_name VARCHAR(255),
+    mission_photo LONGBLOB,
+    checked_count INT DEFAULT 0,
+    PRIMARY KEY (user_id, mission_id),
+    FOREIGN KEY (user_id)
+        REFERENCES User(user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (mission_id)
+        REFERENCES Mission(mission_id)
+        ON DELETE CASCADE
 );
 
-CREATE TABLE AGREED_MEMBER (
-    User_ID INT,
-    Goal_ID INT,
-    Member_ID INT,
-    AGREED BOOLEAN default 0,
-    PRIMARY KEY (User_ID, Goal_ID, Member_ID),
-    FOREIGN KEY (User_ID) REFERENCES USER(ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (Goal_ID) REFERENCES GOAL(ID) ON DELETE CASCADE ON UPDATE CASCADE
+
+CREATE TABLE UserCheck (
+    check_id INT PRIMARY KEY AUTO_INCREMENT,
+    host_id INT,
+    user_id INT,
+    mission_id INT,
+    checked BOOLEAN,
+    FOREIGN KEY (host_id)
+        REFERENCES User(user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (user_id)
+        REFERENCES User(user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (mission_id)
+        REFERENCES Mission(mission_id)
+        ON DELETE CASCADE
 );
 
 SHOW TABLES;
 
-SELECT * FROM goal;
 SELECT * FROM User;
+SELECT * FROM Mission;
+SELECT * FROM Part_miss;
+SELECT * FROM UserCheck;
+
