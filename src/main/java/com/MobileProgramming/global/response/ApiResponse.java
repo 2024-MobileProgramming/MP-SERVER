@@ -24,4 +24,14 @@ public class ApiResponse<T> {
     public static ApiResponse success(final SuccessMessage success) {
         return new ApiResponse(success.getStatus().value(), success.getMessage());
     }
+
+    //통신 실패시
+    public static <T> ApiResponse<T> error(final ErrorMessage error, T data) {
+        return new ApiResponse<>(error.getStatus().value(), error.getMessage(), data);
+    }
+
+    //통신 실패시
+    public static ApiResponse error(final ErrorMessage error) {
+        return new ApiResponse(error.getStatus().value(), error.getMessage());
+    }
 }
