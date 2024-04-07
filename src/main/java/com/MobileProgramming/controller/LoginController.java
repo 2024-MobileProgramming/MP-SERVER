@@ -31,7 +31,9 @@ public class LoginController {
         ArrayList<Object> list = kakaoService.getUserInfo(access_token);
         log.info("사용자 정보 받아오기 성공");
         model.addAttribute("list", list);
-        return "";
+//        프론트 구현되면 RestController로 변경해서 JSON으로 반환하기.
+//        그전까지는 페이지로 연결
+        return "Login_Success";
     }
 
     @GetMapping("/")
