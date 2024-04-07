@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_name", "user_nickname", "user_kakao_email", "user_phone"}, name = "unique_user_info")})
+@Table(name = "\"User\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_name", "user_nickname", "user_kakao_email", "user_phone"}, name = "unique_user_info")})
 public class User {
     @Id
     @Column(name = "user_id")
