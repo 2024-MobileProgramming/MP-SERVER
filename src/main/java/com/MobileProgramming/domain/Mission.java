@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mission {
     @Id
+    @Column(name = "mission_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer missionId;
 
