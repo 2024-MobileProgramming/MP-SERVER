@@ -12,21 +12,16 @@ import java.time.LocalDateTime;
 @Entity
 @Slf4j
 @Getter
-@Table(name = "Mission")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long missionId;
+    private Integer missionId;
 
     @Column(nullable = false)
     private String content;
 
     private LocalDateTime createdTime;
-
-    public String getContent(int id) {
-        return content;
-    }
 
     @Builder
     public Mission(String content, LocalDateTime createdTime) {
