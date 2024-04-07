@@ -1,4 +1,4 @@
---<User 5 insert>--
+-- <User 5 insert>--
 INSERT INTO User (user_id, user_name, user_nickname, user_kakao_email, user_birthday, user_birthyear, user_phone)
 VALUES
     (1, 'John', 'johny', 'john@example.com', '1990-01-01', '1990', '123-456-7890'),
@@ -7,7 +7,7 @@ VALUES
     (4, 'Sophia', 'sophie','sophia@example.com', '1992-11-20', '1992', '444-555-6666'),
     (5, 'William', 'will','william@example.com', '1985-03-10', '1985', '777-888-9999');
 
---<Mission_5 insert>
+-- --<Mission_5 insert>
 INSERT INTO Mission (mission_name)
 VALUES
     ('Mission 1'),
@@ -16,7 +16,7 @@ VALUES
     ('Mission 4'),
     ('Mission 5');
 
---<Part_miss 받아오기>
+-- --<Part_miss 받아오기>
 INSERT INTO Part_miss (user_id, mission_id, mission_name, mission_photo)
 SELECT
     u.user_id,
@@ -28,8 +28,8 @@ FROM
 CROSS JOIN
     (SELECT mission_id, mission_name FROM Mission) AS m;
 
---<UserCheck>
---ex) 만약에 1번 host_id = 1번 주인이, 3,4번 user에게 mission_id 3번을 checked를 받는다. 
+-- --<UserCheck>
+-- --ex) 만약에 1번 host_id = 1번 주인이, 3,4번 user에게 mission_id 3번을 checked를 받는다. 
 INSERT INTO UserCheck (host_id, user_id, mission_id, checked)
 VALUES
     (1, 3, 3, 1),

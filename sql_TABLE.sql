@@ -4,8 +4,8 @@ SHOW tables;
 
 CREATE TABLE User (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(255) NOT NULL,
-    user_nickname VARCHAR(255) NOT NULL,
+    user_name VARCHAR(200) NOT NULL,
+    user_nickname VARCHAR(250) NOT NULL,
     user_profile LONGBLOB,
     user_kakao_email VARCHAR(255) UNIQUE,
     user_birthday VARCHAR(10),
@@ -61,4 +61,3 @@ SELECT * FROM User;
 SELECT * FROM Mission;
 SELECT * FROM Part_miss;
 SELECT * FROM UserCheck;
-
