@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Entity
@@ -30,6 +27,4 @@ public class UserMission {
 //    MYSQL에서 int default 0 이라고 써져있는데 어떤 추가 작업이 필요할지 안할지 자체를 몰라서 일단 그냥 다른 속성들처럼 매핑했습니다. 추후 오류 뜰 시 작업해야함
     @Column(name = "verification_count")
     int count;
-
-
 }
