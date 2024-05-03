@@ -10,7 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "\"User\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_name", "user_nickname", "user_kakao_email", "user_phone"}, name = "unique_user_info")})
+//@Table(name = "\"User\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_name", "user_nickname", "user_kakao_email", "user_phone"}, name = "unique_user_info")})
+//DB가 수정됨에 따라 수정되는데 제가 위에 꺼 잘 몰라서 일단 주석처리했습니다. 필요한거라면 다시 주석 풀고 맞게 바꾸면 될 것 같아요.
 public class User {
     @Id
     @Column(name = "user_id")
@@ -23,18 +24,9 @@ public class User {
     @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "user_profile")
-    private String profile;
-
-    @Column(name = "user_kakao_email", unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "user_birthday")
-    private String birthday;
-
-    @Column(name = "user_birthyear")
-    private String birthyear;
-
-    @Column(name = "user_phone", unique = true)
-    private String phone;
+    @Column(name = "phone_number", unique = true)
+    private String phoneNumber;
 }

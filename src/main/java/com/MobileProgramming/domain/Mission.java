@@ -19,14 +19,9 @@ public class Mission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer missionId;
 
-    @Column(nullable = false)
-    private String content;
+    @Column(name="description")
+    private String description;
 
-    private LocalDateTime createdTime;
-
-    @Builder
-    public Mission(String content, LocalDateTime createdTime) {
-        this.content = content;
-        this.createdTime = createdTime;
-    }
+//    이 클래스는 단순히 Database에 이미 저장되어 있는 미션들을 꺼내오기 위한 용도로 Insert 할 것이 없고, 단순히 데이터베이스에서 가져오는 역할만 할 것 같아서 Bulder 제외했는데
+//    필요할지 안할지는 잘 모르겠습니다.
 }
