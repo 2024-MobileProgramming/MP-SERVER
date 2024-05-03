@@ -1,4 +1,4 @@
-package com.MobileProgramming.domain;
+package com.MobileProgramming.domain.compositeKey;
 
 
 import lombok.AllArgsConstructor;
