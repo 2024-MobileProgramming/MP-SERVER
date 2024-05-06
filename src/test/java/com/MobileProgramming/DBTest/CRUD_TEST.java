@@ -1,22 +1,26 @@
-package com.MobileProgramming.DB_Test;
+package com.MobileProgramming.DBTest;
 
 
 import com.MobileProgramming.domain.Mission;
+import com.MobileProgramming.domain.Team;
 import com.MobileProgramming.domain.User;
 import com.MobileProgramming.repository.JPA.JPAUserRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Array;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @SpringBootTest
-@Transactional
+//@Transactional
+@Slf4j
 public class CRUD_TEST {
 
     @Autowired
@@ -64,9 +68,19 @@ public class CRUD_TEST {
     }
 
     @Test
-    @DisplayName("팀 만들기.")
-    void teamformation() {
-        jpaUserRepository.saveTeam();
+    @DisplayName("팀 저장하기")
+    void saveNewTeam() {
+        long currentTimeMillis = System.currentTimeMillis();
+        java.sql.Date currentDate = new java.sql.Date(currentTimeMillis);
+
+        Team newTeam = new Team(1, 3, currentDate);
+        jpaUserRepository.saveTeam(newTeam);
+
+        Team savedTeam = jpaUserRepository.getTeam().get(0);
+
+        Assertions.assertEquals(newTeam.getUserId(), savedTeam.getUserId());
+        Assertions.assertEquals(newTeam.getTeamId(), savedTeam.getTeamId());
+        Assertions.assertEquals(String.valueOf(newTeam.getUpdatedDate()), String.valueOf(savedTeam.getUpdatedDate()));
 
     }
 }

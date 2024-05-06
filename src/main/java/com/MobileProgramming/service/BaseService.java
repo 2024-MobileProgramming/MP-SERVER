@@ -1,6 +1,5 @@
 package com.MobileProgramming.service;
 
-
-public class BaseService {
-
+public interface BaseService {
+    void teamformation();
 }

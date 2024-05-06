@@ -40,6 +40,14 @@ public class Team {
         this.updatedDate = updatedDate;
     }
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "userId=" + userId +
+                ", teamId=" + teamId +
+                ", updatedDate=" + updatedDate +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

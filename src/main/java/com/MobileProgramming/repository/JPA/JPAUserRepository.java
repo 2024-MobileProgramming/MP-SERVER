@@ -2,6 +2,7 @@ package com.MobileProgramming.repository.JPA;
 
 
 import com.MobileProgramming.domain.Mission;
+import com.MobileProgramming.domain.Team;
 import com.MobileProgramming.domain.User;
 
 import java.util.List;
@@ -22,9 +23,11 @@ public interface JPAUserRepository {
 
 
 //    팀 저장하기
-    void saveTeam();
+    void saveTeam(Team team);
 //    팀 날리기
-    long teamDailyRenewal();
+
+//    팀 가져오기
+    List<Team> getTeam();
 
 //    오늘의 친구 5명 찾아오기
 //    예시로 10명 넣어놓음

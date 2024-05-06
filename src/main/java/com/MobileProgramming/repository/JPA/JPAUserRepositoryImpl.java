@@ -1,16 +1,18 @@
 package com.MobileProgramming.repository.JPA;
 
 import com.MobileProgramming.domain.Mission;
+import com.MobileProgramming.domain.Team;
 import com.MobileProgramming.domain.User;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static com.MobileProgramming.domain.QMission.mission;
+import static com.MobileProgramming.domain.QTeam.team;
 import static com.MobileProgramming.domain.QUser.user;
 
 
@@ -52,13 +54,14 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     }
 
     @Override
-    public void saveTeam() {
-        teamDailyRenewal();
+    public void saveTeam(Team team) {
+        em.persist(team);
     }
 
     @Override
-    public long teamDailyRenewal() {
-        // 여기에 팀의 정보를 업데이트하고 업데이트된 팀 수를 반환하는 로직을 구현해야 합니다.
-        return 0; // 임시로 0을 반환하도록 처리
+    public List<Team> getTeam() {
+        return query.selectFrom(team)
+                .fetch();
     }
+
 }
