@@ -2,7 +2,6 @@ package com.MobileProgramming.repository.JPA;
 
 
 import com.MobileProgramming.domain.Mission;
-import com.MobileProgramming.domain.Team;
 import com.MobileProgramming.domain.User;
 
 import java.util.List;

@@ -47,14 +47,13 @@ public class teamformation {
         }
 
     }
-}
 
     private void saveTeam(List<User> teamMembers, int teamId) {
         Date currentDate = new Date(System.currentTimeMillis()); // 현재 날짜
         for (User user : teamMembers) {
             // 각 팀 멤버마다 팀 정보를 저장
             Team team = new Team(user.getUserId(), teamId, currentDate);
-            jpaUserRepository.saveTeam(team);
+//            jpaUserRepository.saveTeam(team);
         }
     }
 }
