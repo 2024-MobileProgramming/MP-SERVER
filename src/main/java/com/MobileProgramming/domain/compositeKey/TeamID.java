@@ -12,8 +12,8 @@ import java.sql.Date;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class DailyUpdateID implements Serializable {
-    int user_id;
-    int friend_id;
-    Date update_date;
+public class TeamID implements Serializable {
+    int userId;
+    int teamId;
+    Date updatedDate;
 }

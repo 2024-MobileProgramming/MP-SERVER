@@ -1,5 +1,8 @@
 package com.MobileProgramming.auth;
 
+import com.MobileProgramming.domain.User;
+import com.MobileProgramming.repository.BaseRepositoryImpl;
+import com.MobileProgramming.repository.JPA.JPAUserRepository;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -17,6 +20,10 @@ import java.util.ArrayList;
 @Service
 @Slf4j
 public class KakaoServiceImpl implements KakaoService {
+    BaseRepositoryImpl baseRepository;
+    public KakaoServiceImpl(BaseRepositoryImpl baseRepository) {
+        this.baseRepository = baseRepository;
+    }
 
     @Override
     public String getToken(String code) throws Exception {
@@ -99,31 +106,49 @@ public class KakaoServiceImpl implements KakaoService {
         System.out.println("----------properties" + properties);
         System.out.println("----------kakao_account" + kakao_account);
 
-        String thumbnail_image = properties.getAsJsonObject().get("profile_image").getAsString();
-        String ninkname = properties.getAsJsonObject().get("nickname").getAsString();
+///////////////////////////////////////////////////////////////////////
+
+
+//        민영님 확인하시고 지워주세요.
+//        아래 부분이 저희가 DB 저장하는 부분인데 닉네임은 앱에서 설정하고 나머지 부분만 저장할까 합니다.
+//        그리고 카카오 로그인말고 앱 자체에서 회원가입도 가능해서
+//        만약 카카오 회원가입으로 진입 시 밑에 주석으로 제외한 정보들 말고 필요한 정보들만 다시 앱으로 전송해서 유저가 변경못하고 설정할 수 있는 건 닉네임 부분만으로
+//        설정할까 하고 만약 앱 자체 로그인은 다르게 구현해야할 것 같아요.
+//        일단은 제가 혼자 진행하고 있는 부분이 많아지고 있어서 최대한 남겨놓으면서 진행하겠습니다.
+
+///////////////////////////////////////////////////////////////////////
+
+
+//        String thumbnail_image = properties.getAsJsonObject().get("profile_image").getAsString();
+        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
         String email = kakao_account.getAsJsonObject().get("email").getAsString();
-        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
-        String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
-        String birthyear = kakao_account.getAsJsonObject().get("birthyear").getAsString();
+//        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+//        String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+//        String birthyear = kakao_account.getAsJsonObject().get("birthyear").getAsString();
         String phone_number = kakao_account.getAsJsonObject().get("phone_number").getAsString();
         String name = kakao_account.getAsJsonObject().get("name").getAsString();
 
 
-        list.add(birthyear);
+//        list.add(birthyear);
         list.add(phone_number);
-        list.add(thumbnail_image);
-        list.add(ninkname);
+//        list.add(thumbnail_image);
+        list.add(nickname);
         list.add(email);
-        list.add(birthday);
+        list.add(name);
+//        list.add(birthday);
 
         log.info("사용자 정보:" + String.valueOf(list));
 
-        return list;
-//      DB저장하려면 위의 변수들로 저장 필요!
-//        //DB 저장
-//        Kakaouser kakaouser = new Kakaouser(ninkname,"1234",ninkname,email,gender,birthday);
-//        kakaoRepository.save(kakaouser);
+//      DB에 저장하려고 했는데 여기서는 repository의 객체가 생성되지 않아서 사용할수가없습니다.
+//      그렇다고 여기서 repository의 기능들을 구현하는 거도 말이 안되는거같아서
+//      BaseRepositoryImpl로 보내서 하는 식으로 구현했습니다.
+//      위에 말씀드렸듯이 나중에 카카오 로그인 아닌 것도 구현해야해서 카카오 로그인 아닐 시에도
+//        이렇게 baseRepository 이용해서 하는 것이 좋다 판단해서 이렇게 만들어봤는데 더 간단하게 구현할 수 있는
+//        아이디어가 있으시다면 알려주세요.
+        User kakaouser = new User(name, nickname, email, phone_number);
+        baseRepository.saveUser(kakaouser);
+
 //
-//        return list;
+        return list;
     }
 }

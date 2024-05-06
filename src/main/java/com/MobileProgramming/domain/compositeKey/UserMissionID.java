@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class UserMissionID implements Serializable {
-    private int user_id;
-    private int mission_id;
+    private int userId;
+    private int missionId;
 }

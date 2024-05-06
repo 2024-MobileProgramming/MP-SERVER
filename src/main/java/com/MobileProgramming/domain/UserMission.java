@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 @Entity
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserMission {
     @Id
     @Column(name = "user_id")
-    int UserId;
+    int userId;
 
     @Id
     @Column(name = "mission_id")
@@ -31,4 +33,18 @@ public class UserMission {
 //    MYSQL에서 int default 0 이라고 써져있는데 어떤 추가 작업이 필요할지 안할지 자체를 몰라서 일단 그냥 다른 속성들처럼 매핑했습니다. 추후 오류 뜰 시 작업해야함
     @Column(name = "verification_count")
     int count;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserMission that = (UserMission) o;
+        return userId == that.userId && missionId == that.missionId && count == that.count;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, missionId, count);
+    }
 }

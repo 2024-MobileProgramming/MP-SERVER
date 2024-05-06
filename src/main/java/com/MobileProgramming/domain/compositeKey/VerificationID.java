@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class VerificationID implements Serializable {
-    private int user_id;
-    private int mission_id;
-    private int verifier_id;
+    private int userId;
+    private int missionId;
+    private int verifierId;
 }
