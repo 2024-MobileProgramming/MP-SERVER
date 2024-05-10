@@ -5,20 +5,20 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
-@Entity
+@Entity(name = "USERMISSION") // 엔티티 이름 설정
+@Table(name = "user_mission") // 테이블 이름 설정
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @IdClass(UserMissionID.class)
+//다른 테이블은 하나의 단어여서 다 소문자로 매칭되지만, 이 테이블은 두개의 단어 조합이라 찾지 못했음.
 //해당 클래스는 PK가 여러 속성으로 이루어져 있기에 새로운 클래스(UserMissionID)를 만들고, 그걸로 복합키 설정했습니다.
 public class UserMission {
     @Id
@@ -34,6 +34,11 @@ public class UserMission {
     @Column(name = "verification_count")
     int count;
 
+    public UserMission(int userId, int missionId, int count) {
+        this.userId = userId;
+        this.missionId = missionId;
+        this.count = 0;
+    }
 
     @Override
     public boolean equals(Object o) {

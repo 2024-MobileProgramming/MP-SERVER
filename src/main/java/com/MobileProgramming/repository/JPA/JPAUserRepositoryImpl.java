@@ -1,19 +1,22 @@
 package com.MobileProgramming.repository.JPA;
 
-import com.MobileProgramming.domain.Mission;
-import com.MobileProgramming.domain.Team;
-import com.MobileProgramming.domain.User;
+import com.MobileProgramming.domain.*;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import static com.MobileProgramming.domain.QMission.mission;
 import static com.MobileProgramming.domain.QTeam.team;
 import static com.MobileProgramming.domain.QUser.user;
+import static com.MobileProgramming.domain.QUserMission.userMission;
+import static com.MobileProgramming.domain.QVerification.verification;
 
 
 @Slf4j
@@ -42,15 +45,20 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     }
 
     @Override
-    public List<Mission> getMission() {
+    public List<Mission> getAllMission() {
         return query.selectFrom(mission)
                 .fetch();
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAllUser() {
         return query.selectFrom(user)
                 .fetch();
+    }
+
+    @Override
+    public List<Integer> getTeamSize() {
+        return query.select(team.teamId).from(team).fetch();
     }
 
     @Override
@@ -59,9 +67,82 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     }
 
     @Override
-    public List<Team> getTeam() {
+    public List<Team> getAllTeamInfo() {
         return query.selectFrom(team)
                 .fetch();
     }
 
+    @Override
+    public List<Integer> getUserIdsFromTeamByUserId(int userId) {
+        QTeam team = QTeam.team;
+        return query.select(team.userId)
+                .from(team)
+                .where(team.teamId.eq(
+                        JPAExpressions.select(team.teamId)
+                                .from(team)
+                                .where(team.userId.eq(userId))
+                ))
+                .fetch();
+    }
+
+
+    @Override
+    public List<Integer> getTeamIdByUserId(int UserId) {
+        return query.select(team.teamId)
+                .from(team)
+                .where(team.userId.eq(UserId))
+                .fetch();
+    }
+
+    @Override
+    public List<Integer> getMissionIdByuserId(int userId) {
+        return query.
+                select(userMission.missionId)
+                .from(userMission)
+                .where(userMission.userId.eq(userId))
+                .fetch();
+    }
+
+    @Override
+    public List<String> getMissionDescriptionByMissionId(int MissionId) {
+        return query
+                .select(mission.description)
+                .from(mission)
+                .where(mission.missionId.eq(mission.missionId))
+                .fetch();
+    }
+
+    @Override
+    public void allocation(UserMission userMission) {
+        em.persist(userMission);
+    }
+
+    @Override
+    public void verification(int UserId1, int UserId2, int MissionId) {
+        Date currentDate = new Date(System.currentTimeMillis());
+        Verification verification = new Verification(UserId1, MissionId, UserId2, currentDate);
+        em.persist(verification);
+
+        // 쿼리에서 usermission을 UserMission으로 수정
+        String queryString = "UPDATE USERMISSION SET count = count + 1 WHERE userId = :userId AND missionId = :missionId";
+        Query query = em.createQuery(queryString);
+        query.setParameter("userId", UserId1); // UserId1으로 수정
+        query.setParameter("missionId", MissionId); // MissionId로 수정
+        query.executeUpdate();
+    }
+
+    public List<Verification> getVerifierIDByIdAndMissionId(int userId, int missionId) {
+        // userId와 missionId에 해당하는 verification 레코드들을 조회하여 반환
+        return query.selectFrom(verification)
+                .where(verification.userId.eq(userId).and(verification.missionId.eq(missionId)))
+                .fetch();
+    }
+
+    @Override
+    public List<Integer> getUserIdsByTeamId(int teamId) {
+        return query.select(team.userId)
+                .from(team)
+                .where(team.teamId.eq(teamId))
+                .fetch();
+    }
 }

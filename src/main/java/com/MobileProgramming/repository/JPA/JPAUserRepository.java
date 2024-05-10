@@ -1,9 +1,8 @@
 package com.MobileProgramming.repository.JPA;
 
 
-import com.MobileProgramming.domain.Mission;
-import com.MobileProgramming.domain.Team;
-import com.MobileProgramming.domain.User;
+import com.MobileProgramming.domain.*;
+import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
 
@@ -16,24 +15,48 @@ public interface JPAUserRepository {
     List<User> findUserByName(String name);
 
 //    미션 가져오기. 한번에 20개의 미션을 받아서 여기서 5개를 추출하는 식으로 진행
-    List<Mission> getMission();
+    List<Mission> getAllMission();
 
 //    모든 유저 찾아오기
-    List<User> findAll();
+    List<User> findAllUser();
 
+//    팀의 개수 가져오기
+    List<Integer> getTeamSize();
 
 //    팀 저장하기
     void saveTeam(Team team);
 //    팀 날리기
 
 //    팀 가져오기
-    List<Team> getTeam();
+    List<Team> getAllTeamInfo();
 
-//    오늘의 친구 5명 찾아오기
-//    예시로 10명 넣어놓음
+//    Team에서 한명의 userId로 나머지 팀원의 정보 가져오기
+    List<Integer> getUserIdsFromTeamByUserId(int UserId);
 
-//    오늘의 친구 설정하기
+//    UserId로 몇번 팀인지 알아오기
+    List<Integer> getTeamIdByUserId(int UserId);
 
-//    미션 인증 기능
+//    UserId로 해당 유저가 무슨 미션을 수행중인지
+    List<Integer> getMissionIdByuserId(int userId);
 
+
+//    미션이 어떤 미션인지 가져오기
+    List<String> getMissionDescriptionByMissionId(int MissionId);
+
+//    각 userId마다 미션 할당하기(5개씩이 들어갈 것)
+//    같은 팀에 같은 미션 할당하기는 CRUD_TEST 코드 참고.
+    void allocation(UserMission userMission);
+
+
+//    다른 User가 내가 미션 한 것을 인정해주기
+//    UserId1은 인증을 받는 유저, UserId2는 인증을 하는 유저
+//    MissionId는 어떤 미션인지 --> MissionId는 그냥 UserId1로부터 찾아와야함
+//    해당 함수 실행시, userId2가 UserId1가 미션을 수행했다는 것에 동의하는 것으로 인정하고, UserMission의 verfication_count를 1 증가함.
+    void verification(int UserId1, int UserId2, int MissionId);
+
+//    UserId와 MissionId를 받아서 해당 미션에 대한 다른 유저의 인정 정보 가져오기
+     List<Verification> getVerifierIDByIdAndMissionId(int userId, int missionId);
+
+//     teamId로 그 팀에 속해있느 모든 유저의 ID 가져오기
+     List<Integer> getUserIdsByTeamId(int teamId);
 }

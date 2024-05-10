@@ -13,6 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Table(name = "missionproof")
 public class MissionProof {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

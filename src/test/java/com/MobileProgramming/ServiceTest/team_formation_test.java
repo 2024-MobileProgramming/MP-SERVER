@@ -17,4 +17,10 @@ public class team_formation_test {
     void formation_test() {
         baseService.teamformation();
     }
+
+    @Test
+    @DisplayName("되라...제발..")
+    void pleas() {
+        baseService.scheduling();
+    }
 }
