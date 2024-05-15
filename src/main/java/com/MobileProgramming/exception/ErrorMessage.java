@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ErrorMessage {
     USER_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "회원 정보가 존재하지 않습니다."),
-    GOAL_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "목표 정보가 존재하지 않습니다.");
+    GOAL_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "목표 정보가 존재하지 않습니다."),
+    CANNOT_VERIFICATE_EXCEPTION(HttpStatus.NOT_FOUND, "평가하지 못하였습니다. 해당 미션이 존재하지 않습니다.");
     private final HttpStatus status;
     private final String message;
 }

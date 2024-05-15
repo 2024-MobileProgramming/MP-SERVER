@@ -1,12 +1,11 @@
 package com.MobileProgramming.controller;
 
+import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
+import com.MobileProgramming.exception.ErrorMessage;
 import com.MobileProgramming.service.MissionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mission")
@@ -20,4 +19,10 @@ public class MissionController {
         return ResponseEntity.ok(missionService.getMissionData(userId, missionId));
     }
 
+    @PostMapping
+    public ResponseEntity postMissionVerificate(@RequestBody PostMissionVerficateRequest request) throws Exception {
+        if (missionService.postMissionVerificate(request))
+            return ResponseEntity.noContent().build();
+        else throw new Exception(ErrorMessage.CANNOT_VERIFICATE_EXCEPTION.getMessage());
+    }
 }
