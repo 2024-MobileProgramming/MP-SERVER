@@ -1,5 +1,6 @@
 package com.MobileProgramming.repository.JPA;
 
+import com.MobileProgramming.domain.Verification;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -59,4 +60,15 @@ public class MissionRepositoryImpl implements MissionRepository {
             return null;
         else return new GetMissionDataResponse(missionId, verificationNumber, description, missionImage);
     }
+
+    //평가 하기
+    @Override
+    public boolean postMissionVerificate(int verificaterUserId, int verificatedUserId, int missionId) {
+        Verification verification = new Verification();
+        verification.setMissionId(missionId);
+        verification.setUserId(verificatedUserId);
+        verification.setVerifierId(verificaterUserId);
+        em.persist(verification);
+        return true;
+}
 }
