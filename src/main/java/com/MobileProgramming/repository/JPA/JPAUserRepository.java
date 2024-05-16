@@ -42,10 +42,19 @@ public interface JPAUserRepository {
 
 
 //    미션 아이디로 미션 설명 가져오기
-    List<String> getMissionDescriptionByMissionId(int MissionId);
+    String getMissionDescriptionByMissionId(int MissionId);
 
 //    미션 아이디로 미션 짧은 설명 가져오기
-    List<String> getShortDescriptionByMissionId(int MissionId);
+    String getShortDescriptionByMissionId(int MissionId);
+
+    //미션 아이디로 미션 url 받아오기
+    String getMissionUrlByMissionId(int MissionId);
+
+    //미션 아이디로 승인 횟수 받아오기
+    int getMissionVerificationCountByMissionIdAndUserId(int missionId, int userId);
+
+    //미션 아이디, 유저아이디, 날짜로 이미지 받아오기
+    byte[] getImageByMissionId(int userId, int MissionId);
 
 
 //    미션 아이디로 미션 관련 내용 전부 가져오기

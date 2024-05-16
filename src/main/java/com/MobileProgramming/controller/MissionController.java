@@ -13,9 +13,10 @@ public class MissionController {
     private MissionService missionService;
 
     //미션 1개에 대해 미션에 대한 데이터 get
+    //미션상세페이지 뷰
     //mission/userId/missionId
     @GetMapping("/{userId}/{missionId}")
-    public ResponseEntity<GetMissionDataResponse> getMissionData(@PathVariable int userId, int missionId) throws Exception {
+    public ResponseEntity<GetMissionDataResponse> getMissionData(@PathVariable int userId, @PathVariable int missionId) throws Exception {
         return ResponseEntity.ok(missionService.getMissionData(userId, missionId));
     }
 
