@@ -21,18 +21,18 @@ import java.util.Objects;
 public class Verification {
     @Id
     @Column(name = "user_id")
-    int userId;
+    private int userId;
 
     @Id
     @Column(name = "mission_id")
-    int missionId;
+    private int missionId;
 
     @Id
     @Column(name = "verifier_id")
-    int verifierId;
+    private int verifierId;
 
     @Column(name = "verify_date")
-    Date verifyDate;
+    private Date verifyDate;
 
     @Builder
     public Verification(int user, int mission_id, int verifierId, Date date) {

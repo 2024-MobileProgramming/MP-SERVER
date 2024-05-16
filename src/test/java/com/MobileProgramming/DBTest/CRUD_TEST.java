@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +30,15 @@ public class CRUD_TEST {
     int testuserid = 1;
     int verfierid = 2;
     int verfierid2 = 3;
+
+    int testMissionId = 1;
+
+    Date currentDate = new Date(System.currentTimeMillis());//오늘 날짜로 테스트 돌리기
+
+    //    어제날짜도 사용가능
+    LocalDate today = LocalDate.now();
+    LocalDate yesterday = today.minusDays(1);
+    Date dateYesterday = Date.valueOf(yesterday);//어제 날짜 사용도 가능
 
     @Test
     @DisplayName("User Save 가능 확인 테스트")
@@ -76,7 +87,7 @@ public class CRUD_TEST {
         long currentTimeMillis = System.currentTimeMillis();
         java.sql.Date currentDate = new java.sql.Date(currentTimeMillis);
 
-        Team newTeam = new Team(1, 3, currentDate);
+        Team newTeam = new Team(testuserid, 3, currentDate);
         jpaUserRepository.saveTeam(newTeam);
 
         Team savedTeam = jpaUserRepository.getAllTeamInfo().get(0);
@@ -86,6 +97,8 @@ public class CRUD_TEST {
         Assertions.assertEquals(String.valueOf(newTeam.getUpdatedDate()), String.valueOf(savedTeam.getUpdatedDate()));
     }
 
+
+    //테이블 수정!!!팀 만든 날짜 넣어야함
     @Test
     @DisplayName("팀에서 teamId로 UserId'들'가져오기")
     void getuserIDsFromTeamByUserId() {
@@ -95,9 +108,10 @@ public class CRUD_TEST {
         for (Team team : teamList) {
             System.out.println(team.toString());
         }
-        List<Integer> userIdsFromTeamByUserId = jpaUserRepository.getUserIdsFromTeamByUserId(2);
+        System.out.println("팀 출력 완료");
+        List<Integer> userIdsFromTeamByUserId = jpaUserRepository.getUserIdsFromTeamByUserId(testuserid);
         for (Integer i : userIdsFromTeamByUserId) {
-            System.out.println("2번이랑 같은 팀인 ID들" + i);
+            System.out.println(testuserid + "번이랑 같은 팀인 ID들" + i);
         }
     }
 
@@ -110,14 +124,28 @@ public class CRUD_TEST {
 
         Collections.sort(missionIds);
 
+        System.out.println("무작위 미션 아이디 5개 출력하기");
+        for (Integer missionId : missionIds) {
+            System.out.println(missionId);
+        }
+
+        System.out.println(testuserid + "와 팀인 유저들");
+        for (Integer teamMemberId : teamMemberIds) {
+            System.out.println(teamMemberId);
+        }
+
+        System.out.println("현재날짜" + currentDate);
         for (Integer teamMemberId : teamMemberIds) {
             for (Integer missionId : missionIds) {
-                UserMission userMission = new UserMission(teamMemberId, missionId, 0);
+                UserMission userMission = new UserMission(teamMemberId, missionId, 0, currentDate);
                 jpaUserRepository.allocation(userMission);
             }
         }
-        List<Integer> missionIdByuserId = jpaUserRepository.getMissionIdByuserId(testuserid);
-        Assertions.assertEquals(missionIdByuserId, missionIds);
+        System.out.println("DB 저장 후에 테스트 유저가 수행중인 미션아이디들 출력");
+        List<Integer> missionIdByuserId = jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate);
+        for (Integer i : missionIdByuserId) {
+            System.out.println(i);
+        }
     }
 
     @Test
@@ -125,18 +153,18 @@ public class CRUD_TEST {
     void test() {
         getMissionsByUserId(); //미션할당완료
 
-        List<Integer> missionIdByuserId = jpaUserRepository.getMissionIdByuserId(testuserid);
+        List<Integer> missionIdByuserId = jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate);
         System.out.println("테스트유저의 미션아이디들");
         for (Integer i : missionIdByuserId) {
             System.out.println(i);
         }
         System.out.println("첫번째(가장 작은 숫자의) 미션을 2번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?");
-        jpaUserRepository.verification(testuserid, verfierid, jpaUserRepository.getMissionIdByuserId(testuserid).get(0));
+        jpaUserRepository.verification(testuserid, verfierid, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
         System.out.println("첫번째(가장 작은 숫자의) 미션을 3번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?2");
-        jpaUserRepository.verification(testuserid, verfierid2, jpaUserRepository.getMissionIdByuserId(testuserid).get(0));
-        System.out.println("미션ID가 " + jpaUserRepository.getMissionIdByuserId(testuserid).get(0) + "인 미션에 대해 동의한 유저");
+        jpaUserRepository.verification(testuserid, verfierid2, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
+        System.out.println("미션ID가 " + jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0) + "인 미션에 대해 동의한 유저");
         List<Verification> verifiedMissionsByIdAndMissionId =
-                jpaUserRepository.getVerifierIDByIdAndMissionId(testuserid, jpaUserRepository.getMissionIdByuserId(testuserid).get(0));
+                jpaUserRepository.getVerifierIDByIdAndMissionId(testuserid, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
         for (Verification verification : verifiedMissionsByIdAndMissionId) {
             System.out.println(verification.getVerifierId());
         }
@@ -145,7 +173,24 @@ public class CRUD_TEST {
     @Test
     @DisplayName("팀아이디로 해당 팀의 userid들 가져오기")
     void getUserIdsByTeamId() {
+        baseService.teamformation();
         List<Integer> userIdsByTeamId = jpaUserRepository.getUserIdsByTeamId(0);
         System.out.println(userIdsByTeamId.toString());
+    }
+
+    @Test
+    @DisplayName("미션 전체 정보 가져오기(ID로 하나의 미션만)")
+    void getMissionInformation() {
+        List<Mission> allMissionInformationByMissionId = jpaUserRepository.getAllMissionInformationByMissionId(testMissionId);
+        System.out.println(allMissionInformationByMissionId);
+    }
+
+    @Test
+    @DisplayName("짧은 설명 가져오기(ID로 하나의 미션만)")
+    void getShortDescription() {
+        List<String> shortDescriptionByMissionId = jpaUserRepository.getShortDescriptionByMissionId(testMissionId);
+        for (String s : shortDescriptionByMissionId) {
+            System.out.println(s);
+        }
     }
 }

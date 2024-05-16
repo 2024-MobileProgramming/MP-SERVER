@@ -18,22 +18,22 @@ public class MissionProof {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "proof_id")
-    int proofId;
+    private int proofId;
 
     @Column(name = "user_id")
-    int userId;
+    private int userId;
 
     @Column(name = "mission_id")
-    int missionId;
+    private int missionId;
 
     @Column(name = "proof_image")
-    byte[] image;
+    private byte[] image;
 
     @Column(name = "proof_description")
-    String description;
+    private String description;
 
     @Column(name = "proof_date")
-    Date date;
+    private Date date;
 
     @Builder
     public MissionProof(int user_id, int mission_id, byte[] image, String description, Date date) {

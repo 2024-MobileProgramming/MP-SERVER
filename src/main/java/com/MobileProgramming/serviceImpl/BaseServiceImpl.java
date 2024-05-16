@@ -113,7 +113,8 @@ public class BaseServiceImpl implements BaseService {
             for (Integer i : userIdsByTeamId) {
                 for (Integer integer : integers) {
                     System.out.println(i+"유저에게"+integer+"번 미션 할당해주기");
-                    jpaUserRepository.allocation(new UserMission(i, integer, 0));
+                    Date date = new Date(System.currentTimeMillis());
+                    jpaUserRepository.allocation(new UserMission(i, integer, 0, date));
                 }
             }
         }

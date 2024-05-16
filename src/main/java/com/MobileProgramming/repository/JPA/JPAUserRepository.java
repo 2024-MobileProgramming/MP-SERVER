@@ -4,6 +4,7 @@ package com.MobileProgramming.repository.JPA;
 import com.MobileProgramming.domain.*;
 import org.springframework.data.relational.core.sql.In;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface JPAUserRepository {
@@ -37,11 +38,20 @@ public interface JPAUserRepository {
     List<Integer> getTeamIdByUserId(int UserId);
 
 //    UserId로 해당 유저가 무슨 미션을 수행중인지
-    List<Integer> getMissionIdByuserId(int userId);
+    List<Integer> getMissionIdsByuserIdAndDate(int userId, Date date);
 
 
-//    미션이 어떤 미션인지 가져오기
+//    미션 아이디로 미션 설명 가져오기
     List<String> getMissionDescriptionByMissionId(int MissionId);
+
+//    미션 아이디로 미션 짧은 설명 가져오기
+    List<String> getShortDescriptionByMissionId(int MissionId);
+
+
+//    미션 아이디로 미션 관련 내용 전부 가져오기
+    List<Mission> getAllMissionInformationByMissionId(int MissionId);
+
+
 
 //    각 userId마다 미션 할당하기(5개씩이 들어갈 것)
 //    같은 팀에 같은 미션 할당하기는 CRUD_TEST 코드 참고.

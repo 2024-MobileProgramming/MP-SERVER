@@ -1,6 +1,9 @@
 package com.MobileProgramming.repository.JPA;
 
 import com.MobileProgramming.domain.*;
+import com.MobileProgramming.domain.QTeam;
+import com.querydsl.core.types.dsl.DatePath;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -17,7 +20,7 @@ import static com.MobileProgramming.domain.QTeam.team;
 import static com.MobileProgramming.domain.QUser.user;
 import static com.MobileProgramming.domain.QUserMission.userMission;
 import static com.MobileProgramming.domain.QVerification.verification;
-
+import static org.hibernate.query.results.Builders.fetch;
 
 @Slf4j
 @Repository
@@ -94,12 +97,13 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .fetch();
     }
 
-    @Override
-    public List<Integer> getMissionIdByuserId(int userId) {
-        return query.
-                select(userMission.missionId)
+    public List<Integer> getMissionIdsByuserIdAndDate(int userId, Date date) {
+        QUserMission userMission = QUserMission.userMission;
+        DatePath<Date> updateDatePath = Expressions.datePath(Date.class, userMission, "updateDate");
+        return query.select(userMission.missionId)
                 .from(userMission)
-                .where(userMission.userId.eq(userId))
+                .where(userMission.userId.eq(userId)
+                        .and(updateDatePath.eq(date)))
                 .fetch();
     }
 
@@ -109,6 +113,23 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .select(mission.description)
                 .from(mission)
                 .where(mission.missionId.eq(mission.missionId))
+                .fetch();
+    }
+
+    @Override
+    public List<String> getShortDescriptionByMissionId(int MissionId) {
+        return query
+                .select(mission.shortDescription)
+                .from(mission)
+                .where(mission.missionId.eq(MissionId))
+                .fetch();
+    }
+
+    @Override
+    public List<Mission> getAllMissionInformationByMissionId(int MissionId) {
+        return query
+                .selectFrom(mission)
+                .where(mission.missionId.eq(MissionId))
                 .fetch();
     }
 
