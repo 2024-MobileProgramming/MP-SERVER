@@ -23,6 +23,8 @@ public class QUserMission extends EntityPathBase<UserMission> {
 
     public final NumberPath<Integer> missionId = createNumber("missionId", Integer.class);
 
+    public final DatePath<java.sql.Date> updateDate = createDate("updateDate", java.sql.Date.class);
+
     public final NumberPath<Integer> userId = createNumber("userId", Integer.class);
 
     public QUserMission(String variable) {

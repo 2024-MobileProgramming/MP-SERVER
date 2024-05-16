@@ -20,15 +20,15 @@ import java.util.Objects;
 public class Team {
     @Id
     @Column(name = "user_id")
-    int userId;
+    private int userId;
 
     @Id
     @Column(name = "team_id")
-    int teamId;
+    private int teamId;
 
     @Id
     @Column(name = "updated_date")
-    Date updatedDate;
+    private Date updatedDate;
 
 
     //    매일 오늘의 친구는 갱신되어야 함. 즉 매일 팀이 바뀌는 개념

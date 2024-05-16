@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 
 @NoArgsConstructor
@@ -16,4 +17,5 @@ import java.io.Serializable;
 public class UserMissionID implements Serializable {
     private int userId;
     private int missionId;
+    private Date updateDate;
 }

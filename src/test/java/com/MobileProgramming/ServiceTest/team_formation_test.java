@@ -1,7 +1,6 @@
 package com.MobileProgramming.ServiceTest;
 
 import com.MobileProgramming.service.BaseService;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +15,11 @@ public class team_formation_test {
     @DisplayName("팀 갱신하기")
     void formation_test() {
         baseService.teamformation();
+    }
+
+    @Test
+    @DisplayName("매일 팀 빌딩 및 미션 부여")
+    void scheduling() {
+        baseService.scheduling();
     }
 }

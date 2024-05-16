@@ -13,7 +13,7 @@ import java.sql.Date;
 @Getter
 @EqualsAndHashCode
 public class TeamID implements Serializable {
-    int userId;
-    int teamId;
-    Date updatedDate;
+    private int userId;
+    private int teamId;
+    private Date updatedDate;
 }

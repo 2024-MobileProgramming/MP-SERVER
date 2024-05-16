@@ -21,28 +21,32 @@ public class Mission {
     @Column(name="description")
     private String description;
 
-//    이 클래스는 단순히 Database에 이미 저장되어 있는 미션들을 꺼내오기 위한 용도로 Insert 할 것이 없고, 단순히 데이터베이스에서 가져오는 역할만 할 것 같아서 Bulder 제외했는데
-//    필요할지 안할지는 잘 모르겠습니다.
+    @Column(name="mission_site_url")
+    private String url;
 
+    @Column(name = "short_description")
+    private String shortDescription;
+
+    @Override
+    public String toString() {
+
+        return "Mission{" +
+                "missionId=" + missionId +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mission mission = (Mission) o;
-        return Objects.equals(missionId, mission.missionId) && Objects.equals(description, mission.description);
+        return Objects.equals(missionId, mission.missionId) && Objects.equals(description, mission.description) && Objects.equals(url, mission.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(missionId, description);
-    }
-
-    @Override
-    public String toString() {
-        return "Mission{" +
-                "missionId=" + missionId +
-                ", description='" + description + '\'' +
-                '}';
+        return Objects.hash(missionId, description, url);
     }
 }
