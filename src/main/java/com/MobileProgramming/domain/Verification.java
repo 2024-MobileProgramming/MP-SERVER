@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -20,24 +21,24 @@ import java.util.Objects;
 public class Verification {
     @Id
     @Column(name = "user_id")
-    int userId;
+    private int userId;
 
     @Id
     @Column(name = "mission_id")
-    int missionId;
+    private int missionId;
 
     @Id
     @Column(name = "verifier_id")
-    int verifierId;
+    private int verifierId;
 
     @Column(name = "verify_date")
-    Date verifyDate;
+    private Date verifyDate;
 
     @Builder
-    public Verification(int user, int mission_id, int evaluater, Date date) {
+    public Verification(int user, int mission_id, int verifierId, Date date) {
         this.userId = user;
         this.missionId = mission_id;
-        this.verifierId = evaluater;
+        this.verifierId = verifierId;
         this.verifyDate = date;
     }
 
