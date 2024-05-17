@@ -23,7 +23,9 @@ public class MissionController {
         return ResponseEntity.ok(missionService.getMissionData(userId, missionId));
     }
 
-    @PostMapping
+    //특정 유저의 특정미션 verificate post
+    //인증 post
+    @PostMapping("/verificate")
     public ResponseEntity postMissionVerificate(@RequestBody PostMissionVerficateRequest request) throws Exception {
         if (missionService.postMissionVerificate(request))
             return ResponseEntity.noContent().build();
@@ -46,9 +48,4 @@ public class MissionController {
         return ResponseEntity.ok(missionDataList);
     }
 
-    //특정 유저의 특정미션 verificate하기
-    @PostMapping("/verificate/")
-    public ResponseEntity postMissionVerification(@RequestBody PostMissionVerficateRequest request){
-        missionService.postMissionVerificate(request);
-    }
 }
