@@ -3,7 +3,6 @@ package com.MobileProgramming.service;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
-import com.MobileProgramming.dto.response.GetTeamMemberListResponse;
 import com.MobileProgramming.repository.JPA.JPAUserRepositoryImpl;
 import com.MobileProgramming.repository.JPA.MissionRepositoryImpl;
 import jakarta.transaction.Transactional;
@@ -59,8 +58,6 @@ public class MissionService {
     //유저가 할당받은 미션 아이디 리스트 받아내기
     @Transactional
     public List<Integer> getMissionIdList(int userId) {
-        return jpaUserRepositoryImpl.getMissionIdsByuserIdAndDate(userId, Date(System.currentTimeMillis()));
+        return jpaUserRepositoryImpl.getMissionIdsByuserIdAndDate(userId, new Date(System.currentTimeMillis()));
     }
-
-
 }
