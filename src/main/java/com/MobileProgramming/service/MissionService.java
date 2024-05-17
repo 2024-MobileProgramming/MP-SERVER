@@ -39,8 +39,15 @@ public class MissionService {
 
     //특정 유저의 특정미션 verification 하기
     @Transactional
-    public boolean postMissionVerificate(PostMissionVerficateRequest request) {
-        return jpaMissionRepositoryImpl.postMissionVerificate(request.verificaterUserId(), request.verificatedUserId(), request.missionId());
+    public void postMissionVerificate(PostMissionVerficateRequest request) {
+        jpaUserRepositoryImpl.verification(request.verificatedUserId(), request.verificaterUserId(), request.missionId());
+    }
+
+    //날짜 반영해서 get 되도록 수정필요*****
+    //승인한 상황일 때 true 리턴
+    @Transactional
+    public boolean getVerificate(PostMissionVerficateRequest request){
+        return jpaUserRepositoryImpl.getVerifierIDByIdAndMissionId(request.verificatedUserId(), request.missionId())!=null;
     }
 
     //특정 유저의 특정 미션 단문 데이터 get
