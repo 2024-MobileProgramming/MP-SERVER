@@ -46,4 +46,9 @@ public class MissionController {
         return ResponseEntity.ok(missionDataList);
     }
 
+    //특정 유저의 특정미션 verificate하기
+    @PostMapping("/verificate/")
+    public ResponseEntity postMissionVerification(@RequestBody PostMissionVerficateRequest request){
+        missionService.postMissionVerificate(request);
+    }
 }

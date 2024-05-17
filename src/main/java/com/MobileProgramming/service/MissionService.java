@@ -37,6 +37,7 @@ public class MissionService {
                 jpaUserRepositoryImpl.getMissionUrlByMissionId(missionId));
     }
 
+    //특정 유저의 특정미션 verification 하기
     @Transactional
     public boolean postMissionVerificate(PostMissionVerficateRequest request) {
         return jpaMissionRepositoryImpl.postMissionVerificate(request.verificaterUserId(), request.verificatedUserId(), request.missionId());
