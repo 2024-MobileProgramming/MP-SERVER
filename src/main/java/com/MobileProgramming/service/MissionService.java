@@ -2,10 +2,15 @@ package com.MobileProgramming.service;
 
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
+import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
+import com.MobileProgramming.dto.response.GetTeamMemberListResponse;
 import com.MobileProgramming.repository.JPA.JPAUserRepositoryImpl;
 import com.MobileProgramming.repository.JPA.MissionRepositoryImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.List;
 
 import static com.MobileProgramming.exception.ErrorMessage.GOAL_NOT_FOUND_EXCEPTION;
 
@@ -37,4 +42,25 @@ public class MissionService {
     public boolean postMissionVerificate(PostMissionVerficateRequest request) {
         return jpaMissionRepositoryImpl.postMissionVerificate(request.verificaterUserId(), request.verificatedUserId(), request.missionId());
     }
+
+    //특정 유저의 특정 미션 단문 데이터 get
+    @Transactional
+    public GetMissionShortDataResponse getMissionShortData(int userId, int missionId) {
+        List<Integer> missionList = getMissionIdList(userId);
+        List<GetMissionShortDataResponse> list = null;
+        return new GetMissionShortDataResponse(missionId,
+                jpaUserRepositoryImpl.getMission미션타이틀,
+                jpaUserRepositoryImpl.getShortDescriptionByMissionId(missionId),
+                jpaUserRepositoryImpl.getImageByMissionId(userId, missionId) == null ? false : true,
+                jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId));
+
+    }
+
+    //유저가 할당받은 미션 아이디 리스트 받아내기
+    @Transactional
+    public List<Integer> getMissionIdList(int userId) {
+        return jpaUserRepositoryImpl.getMissionIdsByuserIdAndDate(userId, Date(System.currentTimeMillis()));
+    }
+
+
 }

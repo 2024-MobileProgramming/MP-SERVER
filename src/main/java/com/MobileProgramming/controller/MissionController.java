@@ -2,10 +2,13 @@ package com.MobileProgramming.controller;
 
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
+import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
 import com.MobileProgramming.exception.ErrorMessage;
 import com.MobileProgramming.service.MissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/mission")
@@ -26,4 +29,21 @@ public class MissionController {
             return ResponseEntity.noContent().build();
         else throw new Exception(ErrorMessage.CANNOT_VERIFICATE_EXCEPTION.getMessage());
     }
+
+    //할당받은 미션의 간략데이터 리스트 get
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<GetMissionShortDataResponse>> getTodayMissionList(@PathVariable int userId) {
+        //오늘 할당받은 미션아이디 리스트 받아오기
+        List<Integer> missionIdList = missionService.getMissionIdList(userId);
+
+        List<GetMissionShortDataResponse> missionDataList = null;
+
+        //for문으로 할당받은 미션별 데이터 가져오기
+        for (Integer missionId : missionIdList) {
+            GetMissionShortDataResponse missionShortData = missionService.getMissionShortData(userId, missionId);
+            missionDataList.add(missionShortData);
+        }
+        return ResponseEntity.ok(missionDataList);
+    }
+
 }
