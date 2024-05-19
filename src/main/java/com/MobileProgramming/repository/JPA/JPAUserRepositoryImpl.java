@@ -1,7 +1,6 @@
 package com.MobileProgramming.repository.JPA;
 
 import com.MobileProgramming.domain.*;
-import com.MobileProgramming.domain.QTeam;
 import com.querydsl.core.types.dsl.DatePath;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
@@ -16,11 +15,11 @@ import java.sql.Date;
 import java.util.List;
 
 import static com.MobileProgramming.domain.QMission.mission;
+import static com.MobileProgramming.domain.QMissionProof.missionProof;
 import static com.MobileProgramming.domain.QTeam.team;
 import static com.MobileProgramming.domain.QUser.user;
 import static com.MobileProgramming.domain.QUserMission.userMission;
 import static com.MobileProgramming.domain.QVerification.verification;
-import static org.hibernate.query.results.Builders.fetch;
 
 @Slf4j
 @Repository
@@ -97,6 +96,7 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .fetch();
     }
 
+    //유저 아이디, 날짜데이터로 할당받은 미션 아이디 받아오기
     public List<Integer> getMissionIdsByuserIdAndDate(int userId, Date date) {
         QUserMission userMission = QUserMission.userMission;
         DatePath<Date> updateDatePath = Expressions.datePath(Date.class, userMission, "updateDate");
@@ -107,24 +107,65 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .fetch();
     }
 
+    //미션 아이디로 미션 장문 설명 get
     @Override
     public List<String> getMissionDescriptionByMissionId(int MissionId) {
         return query
                 .select(mission.description)
                 .from(mission)
-                .where(mission.missionId.eq(mission.missionId))
-                .fetch();
-    }
-
-    @Override
-    public List<String> getShortDescriptionByMissionId(int MissionId) {
-        return query
-                .select(mission.shortDescription)
-                .from(mission)
                 .where(mission.missionId.eq(MissionId))
                 .fetch();
     }
 
+    //미션 아이디로 미션 단문 설명글 get
+    @Override
+    public String getShortDescriptionByMissionId(int MissionId) {
+        return query
+                .select(mission.shortDescription)
+                .from(mission)
+                .where(mission.missionId.eq(MissionId))
+                .fetchFirst();
+    }
+
+    //미션 아이디로 미션 url get
+    @Override
+    public String getMissionUrlByMissionId(int MissionId) {
+        return query
+                .select(mission.url)
+                .from(mission)
+                .where(mission.missionId.eq(mission.missionId))
+                .fetchFirst();
+    }
+
+    //미션 아이디로 미션 이미지 get
+    @Override
+    public byte[] getImageByMissionId(int userId, int MissionId) {
+        Date currentDate = new Date(System.currentTimeMillis());
+        return query
+                .select(missionProof.image)
+                .from(missionProof)
+                .where(missionProof.missionId.eq(MissionId)
+                        .and(missionProof.date.eq(currentDate))
+                        .and(missionProof.userId.eq(userId)))
+                .fetchFirst();
+    }
+
+    //특정 유저의 특정 미션 승인 횟수 get
+    @Override
+    public int getMissionVerificationCountByMissionIdAndUserId(int missionId, int userId) {
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        Integer verificateCount = query.select(userMission.count)
+                .from(userMission)
+                .where(userMission.userId.eq(userId)
+                        .and(userMission.missionId.eq(missionId))
+                        .and(userMission.updateDate.eq(currentDate)))
+                .fetchFirst();
+        return verificateCount == null ? -1 : verificateCount;
+    }
+
+
+    //미션아이디1개로 해당 미션 모든 데이터 get
     @Override
     public List<Mission> getAllMissionInformationByMissionId(int MissionId) {
         return query
@@ -152,6 +193,7 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
         query.executeUpdate();
     }
 
+    //미션아이디, 유저아이디로 승인 여부 확인
     public List<Verification> getVerifierIDByIdAndMissionId(int userId, int missionId) {
         // userId와 missionId에 해당하는 verification 레코드들을 조회하여 반환
         return query.selectFrom(verification)
@@ -180,6 +222,28 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
         return query.select(mission.missionTitle)
                 .from(mission)
                 .where(mission.missionId.eq(missionId))
+                .fetch();
+    }
+
+    @Override
+    public List<Verification> getVerificateByUserIdAndMissionIdAndDate(int userId, int missionId, Date date) {
+        // userId와 missionId, date에 해당하는 verification 레코드들을 조회하여 반환
+        return query.selectFrom(verification)
+                .where(verification.userId.eq(userId)
+                        .and(verification.missionId.eq(missionId))
+                        .and(verification.verifyDate.eq(date)))
+                .fetch();
+    }
+
+    //미션 아이디로 미션 단문 설명글 get
+    @Override
+    public List<byte[]> getImageByMissionIdAndUserIdAndDate(int userId, int MissionId, Date date) {
+        return query
+                .select(missionProof.image)
+                .from(missionProof)
+                .where(missionProof.missionId.eq(MissionId)
+                        .and(missionProof.date.eq(date))
+                        .and(missionProof.userId.eq(userId)))
                 .fetch();
     }
 }

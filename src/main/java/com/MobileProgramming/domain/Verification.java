@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
 @IdClass(VerificationID.class)

@@ -192,10 +192,8 @@ public class CRUD_TEST {
     @Test
     @DisplayName("짧은 설명 가져오기(ID로 하나의 미션만)")
     void getShortDescription() {
-        List<String> shortDescriptionByMissionId = jpaUserRepository.getShortDescriptionByMissionId(testMissionId);
-        for (String s : shortDescriptionByMissionId) {
-            System.out.println(s);
-        }
+        String shortDescription = jpaUserRepository.getShortDescriptionByMissionId(testMissionId);
+            System.out.println(shortDescription);
     }
 
     @Test

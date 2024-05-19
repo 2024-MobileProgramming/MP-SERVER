@@ -2,7 +2,6 @@ package com.MobileProgramming.repository.JPA;
 
 
 import com.MobileProgramming.domain.*;
-import org.springframework.data.relational.core.sql.In;
 
 import java.sql.Date;
 import java.util.List;
@@ -45,7 +44,16 @@ public interface JPAUserRepository {
     List<String> getMissionDescriptionByMissionId(int MissionId);
 
 //    미션 아이디로 미션 짧은 설명 가져오기
-    List<String> getShortDescriptionByMissionId(int MissionId);
+    String getShortDescriptionByMissionId(int MissionId);
+
+    //미션 아이디로 미션 url 받아오기
+    String getMissionUrlByMissionId(int MissionId);
+
+    //미션 아이디로 승인 횟수 받아오기
+    int getMissionVerificationCountByMissionIdAndUserId(int missionId, int userId);
+
+    //미션 아이디, 유저아이디, 날짜로 이미지 받아오기
+    byte[] getImageByMissionId(int userId, int MissionId);
 
 
 //    미션 아이디로 미션 관련 내용 전부 가져오기
@@ -74,5 +82,11 @@ public interface JPAUserRepository {
 
      List<String> getMissionTitleByMissionId(int missionId);
 
+
+    //UserId, MissionId, Date 받아서 verfication row 리턴
+    List<Verification> getVerificateByUserIdAndMissionIdAndDate(int userId, int missionId, Date date);
+
+    //미션 아이디, 유저아이디, 날짜로 미션 단문 설명글 get
+    List<byte[]> getImageByMissionIdAndUserIdAndDate(int userId, int MissionId, Date date);
 
 }
