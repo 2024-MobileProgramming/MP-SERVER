@@ -1,5 +1,7 @@
 package com.MobileProgramming.controller;
 
+import com.MobileProgramming.dto.request.GetDailyProofsRequest;
+import com.MobileProgramming.dto.request.PostMissionProof;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
@@ -27,7 +29,7 @@ public class MissionController {
     //mission/userId/missionId
     @GetMapping("/{userId}/{missionId}/{viewingUserId}")
     public ApiResponse<GetMissionDataResponse> getMissionData(@PathVariable int userId, @PathVariable int missionId, @PathVariable int viewingUserId) throws Exception {
-        GetMissionDataResponse missionData =missionService.getMissionData(userId, missionId, viewingUserId);
+        GetMissionDataResponse missionData = missionService.getMissionData(userId, missionId, viewingUserId);
         if (missionData == null)
             return ApiResponse.error(ErrorMessage.GOAL_NOT_FOUND_EXCEPTION);
         else
