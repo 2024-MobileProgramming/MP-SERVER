@@ -35,9 +35,12 @@ public class MissionController {
     //인증 post
     @PostMapping("/verificate")
     public ApiResponse postMissionVerificate(@RequestBody PostMissionVerficateRequest request) {
-        missionService.postMissionVerificate(request);
+        //승인여부 확인하고 post 실행
         if (missionService.getVerificate(request))
+        {
+            missionService.postMissionVerificate(request);
             return ApiResponse.success(SuccessMessage.VERIFICATE_MISSION_SUCCESS);
+        }
         else return ApiResponse.error(ErrorMessage.CANNOT_VERIFICATE_EXCEPTION);
     }
 
