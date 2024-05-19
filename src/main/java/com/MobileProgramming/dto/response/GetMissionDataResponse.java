@@ -6,7 +6,8 @@ public record GetMissionDataResponse(
         int verificationNumber,//타 사용자가 인증 갯수
         String missionTitle,
         String missionDescription,
-        String url
+        String url,
+        boolean isVerificatedByViewer
 ) {
 //    public static GetMissionDataResponse of()
 }

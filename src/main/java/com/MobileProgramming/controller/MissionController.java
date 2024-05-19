@@ -23,12 +23,13 @@ public class MissionController {
     //미션 1개에 대해 미션에 대한 데이터 get
     //미션상세페이지 뷰
     //mission/userId/missionId
-    @GetMapping("/{userId}/{missionId}")
-    public ApiResponse<GetMissionDataResponse> getMissionData(@PathVariable int userId, @PathVariable int missionId) throws Exception {
-        if (missionService.getMissionData(userId, missionId) == null)
+    @GetMapping("/{userId}/{missionId}/{viewingUserId}")
+    public ApiResponse<GetMissionDataResponse> getMissionData(@PathVariable int userId, @PathVariable int missionId, @PathVariable int viewingUserId) throws Exception {
+        GetMissionDataResponse missionData =missionService.getMissionData(userId, missionId, viewingUserId);
+        if (missionData == null)
             return ApiResponse.error(ErrorMessage.GOAL_NOT_FOUND_EXCEPTION);
         else
-            return ApiResponse.success(SuccessMessage.MISSION_DATA_GET_SUCCESS, missionService.getMissionData(userId, missionId));
+            return ApiResponse.success(SuccessMessage.MISSION_DATA_GET_SUCCESS, missionData);
     }
 
     //특정 유저의 특정미션 verificate post
