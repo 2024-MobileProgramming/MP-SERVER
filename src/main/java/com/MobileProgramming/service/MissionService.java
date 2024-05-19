@@ -6,7 +6,6 @@ import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
 import com.MobileProgramming.repository.JPA.JPAUserRepositoryImpl;
-import com.MobileProgramming.repository.JPA.MissionRepositoryImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,9 @@ import java.util.List;
 @Service
 @Transactional
 public class MissionService {
-    private final MissionRepositoryImpl jpaMissionRepositoryImpl;
     private final JPAUserRepositoryImpl jpaUserRepositoryImpl;
 
-    public MissionService(MissionRepositoryImpl jpaMissionRepositoryImpl, JPAUserRepositoryImpl jpaUserRepositoryImpl) {
-        this.jpaMissionRepositoryImpl = jpaMissionRepositoryImpl;
+    public MissionService(JPAUserRepositoryImpl jpaUserRepositoryImpl) {
         this.jpaUserRepositoryImpl = jpaUserRepositoryImpl;
     }
 
