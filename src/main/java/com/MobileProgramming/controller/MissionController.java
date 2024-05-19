@@ -36,12 +36,14 @@ public class MissionController {
     @PostMapping("/verificate")
     public ApiResponse postMissionVerificate(@RequestBody PostMissionVerficateRequest request) {
         //승인여부 확인하고 post 실행
-        if (missionService.getVerificate(request))
-        {
-            missionService.postMissionVerificate(request);
-            return ApiResponse.success(SuccessMessage.VERIFICATE_MISSION_SUCCESS);
-        }
-        else return ApiResponse.error(ErrorMessage.CANNOT_VERIFICATE_EXCEPTION);
+        Date date = new Date(System.currentTimeMillis());
+        if (!missionService.getVerificate(request, date)) {
+            missionService.postMissionVerificate(request); //승인 실행
+            //정상적으로 승인 post 완료시
+            if (missionService.getVerificate(request, date))
+                return ApiResponse.success(SuccessMessage.VERIFICATE_MISSION_SUCCESS);
+            else return ApiResponse.error(ErrorMessage.VERIFICATE_NOT_DONE_EXCEPTION);
+        } else return ApiResponse.error(ErrorMessage.ALREADY_VERIFICATE_EXCEPTION);
     }
 
     //할당받은 미션의 간략데이터 리스트 get

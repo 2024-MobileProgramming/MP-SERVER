@@ -1,5 +1,6 @@
 package com.MobileProgramming.service;
 
+import com.MobileProgramming.domain.Verification;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
@@ -47,15 +48,19 @@ public class MissionService {
     //날짜 반영해서 get 되도록 수정필요*****
     //승인한 상황일 때 true 리턴
     @Transactional
-    public boolean getVerificate(PostMissionVerficateRequest request){
-        return jpaUserRepositoryImpl.getVerifierIDByIdAndMissionId(request.verificatedUserId(), request.missionId())!=null;
+    public boolean getVerificate(PostMissionVerficateRequest request, Date date) {
+        //이미 verificate된 경우 true 리턴, unverificate일 때 false 리턴
+        List<Verification> verificationList = jpaUserRepositoryImpl.getVerificateByUserIdAndMissionIdAndDate(request.verificatedUserId(), request.missionId(), date);
+        for (Verification row : verificationList) {
+            if (row.getVerifierId() == request.verificaterUserId())
+                return true;
+        }
+        return false;
     }
 
     //특정 유저의 특정 미션 단문 데이터 get
     @Transactional
     public GetMissionShortDataResponse getMissionShortData(int userId, int missionId) {
-        List<Integer> missionList = getMissionIdList(userId);
-        List<GetMissionShortDataResponse> list = null;
         return new GetMissionShortDataResponse(missionId,
                 jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getShortDescriptionByMissionId(missionId),
