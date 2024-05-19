@@ -161,7 +161,7 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                         .and(userMission.missionId.eq(missionId))
                         .and(userMission.updateDate.eq(currentDate)))
                 .fetchFirst();
-        return verificateCount == null ? 0 : verificateCount;
+        return verificateCount == null ? -1 : verificateCount;
     }
 
 

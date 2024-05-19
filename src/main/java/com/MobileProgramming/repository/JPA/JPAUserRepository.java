@@ -42,7 +42,7 @@ public interface JPAUserRepository {
 
 
 //    미션 아이디로 미션 설명 가져오기
-    String getMissionDescriptionByMissionId(int MissionId);
+    List<String> getMissionDescriptionByMissionId(int MissionId);
 
 //    미션 아이디로 미션 짧은 설명 가져오기
     String getShortDescriptionByMissionId(int MissionId);
