@@ -16,6 +16,10 @@ import java.util.List;
 public class MissionController {
     private MissionService missionService;
 
+    public MissionController(MissionService missionService) {
+        this.missionService = missionService;
+    }
+
     //미션 1개에 대해 미션에 대한 데이터 get
     //미션상세페이지 뷰
     //mission/userId/missionId

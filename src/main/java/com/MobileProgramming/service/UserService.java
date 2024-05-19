@@ -15,11 +15,7 @@ public class UserService {
         List<Integer> teamUserIdList = jpaUserRepositoryImpl.getUserIdsFromTeamByUserId(userId);
         List<GetTeamMemberListResponse> memberDataList = null;
         for (Integer memberId : teamUserIdList) {
-
-
-            //getUserNameByUserId추후 코드 추가되면 수정**
-            GetTeamMemberListResponse memberData = new GetTeamMemberListResponse(userId, jpaUserRepositoryImpl.getUserNameByUserId(memberId));
-            //////////////////
+            GetTeamMemberListResponse memberData = new GetTeamMemberListResponse(userId, jpaUserRepositoryImpl.getUserNameByUserId(memberId).get(0));
             memberDataList.add(memberData);
         }
         return memberDataList;

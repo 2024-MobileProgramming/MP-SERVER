@@ -56,10 +56,10 @@ public class MissionService {
         List<Integer> missionList = getMissionIdList(userId);
         List<GetMissionShortDataResponse> list = null;
         return new GetMissionShortDataResponse(missionId,
-                jpaUserRepositoryImpl.getMission미션타이틀,
+                jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getShortDescriptionByMissionId(missionId),
                 jpaUserRepositoryImpl.getImageByMissionId(userId, missionId) == null ? false : true,
-                jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId));
+                jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId) == 0 ? false : true);
 
     }
 
