@@ -223,4 +223,14 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .where(mission.missionId.eq(missionId))
                 .fetch();
     }
+
+    @Override
+    public List<Verification> getVerificateByUserIdAndMissionIdAndDate(int userId, int missionId, Date date) {
+        // userId와 missionId, date에 해당하는 verification 레코드들을 조회하여 반환
+        return query.selectFrom(verification)
+                .where(verification.userId.eq(userId)
+                        .and(verification.missionId.eq(missionId))
+                        .and(verification.verifyDate.eq(date)))
+                .fetch();
+    }
 }

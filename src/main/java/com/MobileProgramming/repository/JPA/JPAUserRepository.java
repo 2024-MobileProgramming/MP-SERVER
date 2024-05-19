@@ -84,4 +84,6 @@ public interface JPAUserRepository {
      List<String> getMissionTitleByMissionId(int missionId);
 
 
+    //UserId, MissionId, Date 받아서 verfication row 리턴
+    List<Verification> getVerificateByUserIdAndMissionIdAndDate(int userId, int missionId, Date date);
 }
