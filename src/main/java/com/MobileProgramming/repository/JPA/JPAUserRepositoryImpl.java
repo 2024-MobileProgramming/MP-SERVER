@@ -109,12 +109,12 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
 
     //미션 아이디로 미션 장문 설명 get
     @Override
-    public String getMissionDescriptionByMissionId(int MissionId) {
+    public List<String> getMissionDescriptionByMissionId(int MissionId) {
         return query
                 .select(mission.description)
                 .from(mission)
-                .where(mission.missionId.eq(mission.missionId))
-                .fetchFirst();
+                .where(mission.missionId.eq(MissionId))
+                .fetch();
     }
 
     //미션 아이디로 미션 단문 설명글 get

@@ -27,16 +27,31 @@ public class MissionService {
 
     //특정유저의 1개의 미션에 대한 정보 get method
     @Transactional
-    public GetMissionDataResponse getMissionData(int userId, int missionId) throws Exception {
-        if (jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId) == null)
-            throw new Exception(GOAL_NOT_FOUND_EXCEPTION.getMessage());
-        // 카운트, 이미지 받아오기, 장문 설명, url 받아오기
+    public GetMissionDataResponse getMissionData(int userId, int missionId, int viewingUserId) throws Exception {
+        //미션할당자, 미션아이디 맞는 쌍인지 확인
+        System.out.println(jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId));
+        if (jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId) == -1)
+            return null;
+        List<Verification> verificationList = jpaUserRepositoryImpl.getVerificateByUserIdAndMissionIdAndDate(userId, missionId, new Date(System.currentTimeMillis()));
+        boolean verificatedByViewingUser = false;
+
+        //해당 미션 뷰 조회자가 해당 미션 평가했는지 여부 확인
+        if(userId != viewingUserId) {
+            for (Verification verification : verificationList) {
+                if (verification.getVerifierId() == viewingUserId)
+                    verificatedByViewingUser = true; //조회한 유저가 이미 평가한 경우
+            }
+        }
+
+        System.out.println(missionId);
+        // 카운트, 이미지 받아오기, 장문 설명, url, 조회자가 평가 여부 받아오기
         return new GetMissionDataResponse(missionId,
                 jpaUserRepositoryImpl.getImageByMissionId(userId, missionId),
                 jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId),
                 jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
-                jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId),
-                jpaUserRepositoryImpl.getMissionUrlByMissionId(missionId));
+                jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId).get(0),
+                jpaUserRepositoryImpl.getMissionUrlByMissionId(missionId),
+                verificatedByViewingUser);
     }
 
     //특정 유저의 특정미션 verification 하기
