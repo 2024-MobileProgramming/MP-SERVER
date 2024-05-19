@@ -27,12 +27,13 @@ public class MissionService {
     //특정유저의 1개의 미션에 대한 정보 get method
     @Transactional
     public GetMissionDataResponse getMissionData(int userId, int missionId) throws Exception {
-        if (jpaMissionRepositoryImpl.getMissionData(userId, missionId) == null)
+        if (jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId) == null)
             throw new Exception(GOAL_NOT_FOUND_EXCEPTION.getMessage());
         // 카운트, 이미지 받아오기, 장문 설명, url 받아오기
         return new GetMissionDataResponse(missionId,
                 jpaUserRepositoryImpl.getImageByMissionId(userId, missionId),
                 jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId),
+                jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId),
                 jpaUserRepositoryImpl.getMissionUrlByMissionId(missionId));
     }

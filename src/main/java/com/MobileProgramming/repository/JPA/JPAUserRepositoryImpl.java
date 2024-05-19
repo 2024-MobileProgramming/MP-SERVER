@@ -155,12 +155,13 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     public int getMissionVerificationCountByMissionIdAndUserId(int missionId, int userId) {
         Date currentDate = new Date(System.currentTimeMillis());
 
-        return query.select(userMission.count)
+        Integer verificateCount = query.select(userMission.count)
                 .from(userMission)
                 .where(userMission.userId.eq(userId)
                         .and(userMission.missionId.eq(missionId))
                         .and(userMission.updateDate.eq(currentDate)))
                 .fetchFirst();
+        return verificateCount == null ? 0 : verificateCount;
     }
 
 
