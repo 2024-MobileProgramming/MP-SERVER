@@ -16,7 +16,8 @@ public enum SuccessMessage {
     VERIFICATE_MISSION_SUCCESS(HttpStatus.NO_CONTENT, "미션 평가여부가 승인으로 변경되었습니다."),
     TODAY_MISSIONS_GET_SUCCESS(HttpStatus.OK, "해당 유저의 미션 조회 성공"),
     MISSION_DATA_GET_SUCCESS(HttpStatus.OK, "특정 미션 조회 성공"),
-    TEAM_MEMBER_GET_SUCCESS(HttpStatus.OK, "팀 멤버 조회 성공");
+    TEAM_MEMBER_GET_SUCCESS(HttpStatus.OK, "팀 멤버 조회 성공"),
+    DAILY_PROOF_GET_SUCCESS(HttpStatus.OK, "특정 유저의 한달 proof정보 조회 성공");
     private final HttpStatus status;
     private final String message;
 }

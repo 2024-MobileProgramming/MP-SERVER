@@ -1,6 +1,7 @@
 package com.MobileProgramming.service;
 
 import com.MobileProgramming.domain.Verification;
+import com.MobileProgramming.dto.request.GetDailyProofsRequest;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
@@ -10,9 +11,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.MobileProgramming.exception.ErrorMessage.GOAL_NOT_FOUND_EXCEPTION;
 
 @Service
 @Transactional
@@ -36,7 +37,7 @@ public class MissionService {
         boolean verificatedByViewingUser = false;
 
         //해당 미션 뷰 조회자가 해당 미션 평가했는지 여부 확인
-        if(userId != viewingUserId) {
+        if (userId != viewingUserId) {
             for (Verification verification : verificationList) {
                 if (verification.getVerifierId() == viewingUserId)
                     verificatedByViewingUser = true; //조회한 유저가 이미 평가한 경우
@@ -88,5 +89,41 @@ public class MissionService {
     @Transactional
     public List<Integer> getMissionIdList(int userId) {
         return jpaUserRepositoryImpl.getMissionIdsByuserIdAndDate(userId, new Date(System.currentTimeMillis()));
+    }
+
+    @Transactional
+    public List<Integer> getDailyProof(GetDailyProofsRequest request) {
+        //해당월 전체일 리스트 생성
+        List<Date> dateList = generateDateList(request.year(), request.month());
+        List<Integer> proofDataList = new ArrayList<>();
+        int dailyProofCount = 0;
+
+        //각 일 별 proof count 리스트 생성
+        for (Date date : dateList) {
+            List<Integer> dailyMissionIdList = jpaUserRepositoryImpl.getMissionIdsByuserIdAndDate(request.userId(), date);
+            dailyProofCount = 0;
+            for (Integer missionId : dailyMissionIdList) {
+                System.out.println(missionId);
+                if (jpaUserRepositoryImpl.getImageByMissionIdAndUserIdAndDate(request.userId(), missionId, date) != null)
+                    dailyProofCount++;
+            }
+            proofDataList.add(dailyProofCount);
+        }
+        return proofDataList;
+    }
+
+    //해당월 전체일자 리스트 생성
+    public List<Date> generateDateList(int year, int month) {
+        List<Date> dates = new ArrayList<>();
+        // 해당 년월의 월초-월말 날짜 설정
+        LocalDate start = LocalDate.of(year, month, 1);
+        LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+        while (!start.isAfter(end)) {
+            dates.add(Date.valueOf(start));
+            start = start.plusDays(1);
+        }
+
+        return dates;
     }
 }

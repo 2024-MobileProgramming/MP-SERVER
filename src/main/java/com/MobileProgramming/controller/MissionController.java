@@ -68,4 +68,11 @@ public class MissionController {
         else return ApiResponse.error(ErrorMessage.GOAL_NOT_FOUND_EXCEPTION);
     }
 
+    //년-달, 유저id 정보 받으면 int array로 리턴하기
+    //해당 달, 유저가 매일 할당받은 미션들 중, proof이미지 올린 미션갯수 count == 1일 미션 수행 정보 -> array로 만들어
+    @GetMapping("/monthly")
+    public ApiResponse<List<Integer>> getDailyProofedMissions(@RequestBody GetDailyProofsRequest request) {
+        return ApiResponse.success(SuccessMessage.DAILY_PROOF_GET_SUCCESS, missionService.getDailyProof(request));
+    }
+
 }

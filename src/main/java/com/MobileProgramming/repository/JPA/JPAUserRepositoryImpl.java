@@ -137,7 +137,7 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .fetchFirst();
     }
 
-    //미션 아이디로 미션 단문 설명글 get
+    //미션 아이디로 미션 이미지 get
     @Override
     public byte[] getImageByMissionId(int userId, int MissionId) {
         Date currentDate = new Date(System.currentTimeMillis());
@@ -232,6 +232,18 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .where(verification.userId.eq(userId)
                         .and(verification.missionId.eq(missionId))
                         .and(verification.verifyDate.eq(date)))
+                .fetch();
+    }
+
+    //미션 아이디로 미션 단문 설명글 get
+    @Override
+    public List<byte[]> getImageByMissionIdAndUserIdAndDate(int userId, int MissionId, Date date) {
+        return query
+                .select(missionProof.image)
+                .from(missionProof)
+                .where(missionProof.missionId.eq(MissionId)
+                        .and(missionProof.date.eq(date))
+                        .and(missionProof.userId.eq(userId)))
                 .fetch();
     }
 }

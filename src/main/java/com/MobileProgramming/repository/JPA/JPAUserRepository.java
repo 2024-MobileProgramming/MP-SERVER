@@ -2,7 +2,6 @@ package com.MobileProgramming.repository.JPA;
 
 
 import com.MobileProgramming.domain.*;
-import org.springframework.data.relational.core.sql.In;
 
 import java.sql.Date;
 import java.util.List;
@@ -86,4 +85,8 @@ public interface JPAUserRepository {
 
     //UserId, MissionId, Date 받아서 verfication row 리턴
     List<Verification> getVerificateByUserIdAndMissionIdAndDate(int userId, int missionId, Date date);
+
+    //미션 아이디, 유저아이디, 날짜로 미션 단문 설명글 get
+    List<byte[]> getImageByMissionIdAndUserIdAndDate(int userId, int MissionId, Date date);
+
 }
