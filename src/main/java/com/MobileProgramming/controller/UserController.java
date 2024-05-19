@@ -18,6 +18,10 @@ public class UserController {
 
     private UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     //특정 유저 아이디로 같은 팀멤버리스트(닉네임, 아이디 get)
     //친구목록view
     @GetMapping("/memberList/{userId}")
