@@ -23,6 +23,8 @@ public class QMission extends EntityPathBase<Mission> {
 
     public final NumberPath<Integer> missionId = createNumber("missionId", Integer.class);
 
+    public final StringPath missionTitle = createString("missionTitle");
+
     public final StringPath shortDescription = createString("shortDescription");
 
     public final StringPath url = createString("url");
