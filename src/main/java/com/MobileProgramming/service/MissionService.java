@@ -65,7 +65,7 @@ public class MissionService {
                 jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getShortDescriptionByMissionId(missionId),
                 jpaUserRepositoryImpl.getImageByMissionId(userId, missionId) == null ? false : true,
-                jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId) == 0 ? false : true);
+                jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId));
 
     }
 

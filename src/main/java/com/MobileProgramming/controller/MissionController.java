@@ -54,8 +54,7 @@ public class MissionController {
         List<Integer> missionIdList = missionService.getMissionIdList(userId);
         if (missionIdList == null)
             return ApiResponse.error(ErrorMessage.USER_NOT_FOUND_EXCEPTION);
-
-        List<GetMissionShortDataResponse> missionDataList = null;
+        List<GetMissionShortDataResponse> missionDataList = new ArrayList<>();
 
         //for문으로 할당받은 미션별 데이터 가져오기
         for (Integer missionId : missionIdList) {

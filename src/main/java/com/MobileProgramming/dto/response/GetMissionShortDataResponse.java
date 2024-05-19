@@ -5,6 +5,6 @@ public record GetMissionShortDataResponse (
         String missionTitle,
         String missionShortDescription,
         boolean imageProofed,
-        boolean verficated
+        int verficatedCount
 ){
 }
