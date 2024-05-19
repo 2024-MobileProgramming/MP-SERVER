@@ -78,4 +78,10 @@ public interface JPAUserRepository {
 
 //     teamId로 그 팀에 속해있느 모든 유저의 ID 가져오기
      List<Integer> getUserIdsByTeamId(int teamId);
+
+     List<String> getUserNameByUserId(int userId);
+
+     List<String> getMissionTitleByMissionId(int missionId);
+
+
 }

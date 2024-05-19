@@ -207,4 +207,20 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .where(team.teamId.eq(teamId))
                 .fetch();
     }
+
+    @Override
+    public List<String> getUserNameByUserId(int userId) {
+        return query.select(user.name)
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetch();
+    }
+
+    @Override
+    public List<String> getMissionTitleByMissionId(int missionId) {
+        return query.select(mission.missionTitle)
+                .from(mission)
+                .where(mission.missionId.eq(missionId))
+                .fetch();
+    }
 }

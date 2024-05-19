@@ -27,26 +27,57 @@ public class Mission {
     @Column(name = "short_description")
     private String shortDescription;
 
+    @Column(name = "mission_title")
+    private String missionTitle;
+
     @Override
     public String toString() {
-
         return "Mission{" +
                 "missionId=" + missionId +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", missionTitle='" + missionTitle + '\'' +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mission mission = (Mission) o;
-        return Objects.equals(missionId, mission.missionId) && Objects.equals(description, mission.description) && Objects.equals(url, mission.url);
+    public Integer getMissionId() {
+        return missionId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(missionId, description, url);
+    public void setMissionId(Integer missionId) {
+        this.missionId = missionId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getMissionTitle() {
+        return missionTitle;
+    }
+
+    public void setMissionTitle(String missionTitle) {
+        this.missionTitle = missionTitle;
     }
 }
