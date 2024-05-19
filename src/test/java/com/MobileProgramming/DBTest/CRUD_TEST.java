@@ -156,13 +156,17 @@ public class CRUD_TEST {
         List<Integer> missionIdByuserId = jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate);
         System.out.println("테스트유저의 미션아이디들");
         for (Integer i : missionIdByuserId) {
-            System.out.println(i);
+            List<Mission> allMissionInformationByMissionId = jpaUserRepository.getAllMissionInformationByMissionId(i);
+            for (Mission mission : allMissionInformationByMissionId) {
+                System.out.println(mission);
+            }
         }
-        System.out.println("첫번째(가장 작은 숫자의) 미션을 2번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?");
+        System.out.println("첫번째(가장 작은 숫자의) 미션을 2번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?(날짜는 오늘 날짜로)");
         jpaUserRepository.verification(testuserid, verfierid, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
-        System.out.println("첫번째(가장 작은 숫자의) 미션을 3번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?2");
+        System.out.println("첫번째(가장 작은 숫자의) 미션을 3번ID인 verifier가 인증했다고 가정할 때 verifier가 잘 돌아오는가?2(날짜는 오늘 날짜로)");
         jpaUserRepository.verification(testuserid, verfierid2, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
         System.out.println("미션ID가 " + jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0) + "인 미션에 대해 동의한 유저");
+        System.out.println("testuserId의 미션정보들:");
         List<Verification> verifiedMissionsByIdAndMissionId =
                 jpaUserRepository.getVerifierIDByIdAndMissionId(testuserid, jpaUserRepository.getMissionIdsByuserIdAndDate(testuserid, currentDate).get(0));
         for (Verification verification : verifiedMissionsByIdAndMissionId) {
@@ -191,6 +195,25 @@ public class CRUD_TEST {
         List<String> shortDescriptionByMissionId = jpaUserRepository.getShortDescriptionByMissionId(testMissionId);
         for (String s : shortDescriptionByMissionId) {
             System.out.println(s);
+        }
+    }
+
+    @Test
+    @DisplayName("유저아이디로 이름 가져오기")
+    void getusrNamebyuserId() {
+        List<String> userNameByUserId = jpaUserRepository.getUserNameByUserId(testuserid);
+        for (String s : userNameByUserId) {
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    @DisplayName("미션아이디로 미션 제목 가져오기")
+    void getMissionTitleByMissionId() {
+        List<String> missionTitleByMissionId = jpaUserRepository.getMissionTitleByMissionId(testMissionId);
+        for (String s : missionTitleByMissionId) {
+            System.out.println(s);
+
         }
     }
 }
