@@ -2,6 +2,7 @@ package com.MobileProgramming.service;
 
 import com.MobileProgramming.domain.Verification;
 import com.MobileProgramming.dto.request.GetDailyProofsRequest;
+import com.MobileProgramming.dto.request.PostMissionProofRequest;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
@@ -122,5 +123,10 @@ public class MissionService {
         }
 
         return dates;
+    }
+
+    //이미지 업로드
+    public void postProofImage(PostMissionProofRequest request){
+        jpaUserRepositoryImpl.postProofImage(request.userId(), request.missionId(), request.image());
     }
 }
