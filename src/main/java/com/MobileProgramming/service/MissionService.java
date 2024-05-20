@@ -2,9 +2,11 @@ package com.MobileProgramming.service;
 
 import com.MobileProgramming.domain.Verification;
 import com.MobileProgramming.dto.request.GetDailyProofsRequest;
+import com.MobileProgramming.dto.request.PostMissionProofRequest;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
+import com.MobileProgramming.global.util.ImageUtil;
 import com.MobileProgramming.repository.JPA.JPAUserRepositoryImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -122,5 +124,11 @@ public class MissionService {
         }
 
         return dates;
+    }
+
+    //이미지 업로드
+    public void postProofImage(PostMissionProofRequest request){
+        byte[] imageBytes = ImageUtil.decodeBase64ToBytes(request.image());
+        jpaUserRepositoryImpl.postProofImage(request.userId(), request.missionId(), imageBytes);
     }
 }

@@ -246,4 +246,10 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                         .and(missionProof.userId.eq(userId)))
                 .fetch();
     }
+
+    @Override
+    public void postProofImage(int userId, int missionId, byte[] image){
+        MissionProof missionProof = new MissionProof(userId, missionId, image, "null", new Date(System.currentTimeMillis()));
+        em.persist(missionProof);
+    }
 }
