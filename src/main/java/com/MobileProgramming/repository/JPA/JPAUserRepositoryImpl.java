@@ -248,8 +248,8 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     }
 
     @Override
-    public void postProofImage(int userId, int missionId, String image){
-        MissionProof missionProof = new MissionProof(userId, missionId, image.getBytes(), "null", new Date(System.currentTimeMillis()));
+    public void postProofImage(int userId, int missionId, byte[] image){
+        MissionProof missionProof = new MissionProof(userId, missionId, image, "null", new Date(System.currentTimeMillis()));
         em.persist(missionProof);
     }
 }

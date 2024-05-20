@@ -90,5 +90,5 @@ public interface JPAUserRepository {
     List<byte[]> getImageByMissionIdAndUserIdAndDate(int userId, int MissionId, Date date);
 
     //미션 proof 이미지 post
-    void postProofImage(int userId, int missionId, String image);
+    void postProofImage(int userId, int missionId, byte[] image);
 }
