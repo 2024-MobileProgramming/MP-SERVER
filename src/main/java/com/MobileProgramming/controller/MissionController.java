@@ -9,12 +9,14 @@ import com.MobileProgramming.exception.ErrorMessage;
 import com.MobileProgramming.exception.SuccessMessage;
 import com.MobileProgramming.global.response.ApiResponse;
 import com.MobileProgramming.service.MissionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "미션 관련 API")
 @RestController
 @RequestMapping("/mission")
 public class MissionController {
