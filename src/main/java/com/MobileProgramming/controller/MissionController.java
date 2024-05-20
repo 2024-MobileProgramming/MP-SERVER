@@ -1,7 +1,7 @@
 package com.MobileProgramming.controller;
 
 import com.MobileProgramming.dto.request.GetDailyProofsRequest;
-import com.MobileProgramming.dto.request.PostMissionProof;
+import com.MobileProgramming.dto.request.PostMissionProofRequest;
 import com.MobileProgramming.dto.request.PostMissionVerficateRequest;
 import com.MobileProgramming.dto.response.GetMissionDataResponse;
 import com.MobileProgramming.dto.response.GetMissionShortDataResponse;
@@ -77,6 +77,19 @@ public class MissionController {
     @GetMapping("/monthly")
     public ApiResponse<List<Integer>> getDailyProofedMissions(@RequestBody GetDailyProofsRequest request) {
         return ApiResponse.success(SuccessMessage.DAILY_PROOF_GET_SUCCESS, missionService.getDailyProof(request));
+    }
+
+    //proof 이미지 업로드
+    @PostMapping("/proof")
+    public ApiResponse postProofImage(@RequestBody PostMissionProofRequest request) throws Exception {
+        //이미지 저장
+        missionService.postProofImage(request);
+
+        //post 작동 여부 확인로직
+        GetMissionDataResponse missionData = missionService.getMissionData(request.userId(), request.missionId(), request.userId());
+        if(missionData.image()!=null)
+            return ApiResponse.success(SuccessMessage.PROOF_IMAGE_POST_SUCCESS);
+        else return ApiResponse.error(ErrorMessage.POST_PROOF_IMAGE_NOT_DONE_EXCEPTION);
     }
 
 }
