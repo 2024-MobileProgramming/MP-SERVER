@@ -46,7 +46,8 @@ public class MissionService {
         System.out.println(missionId);
         // 카운트, 이미지 받아오기, 장문 설명, url, 조회자가 평가 여부 받아오기
         return new GetMissionDataResponse(missionId,
-                jpaUserRepositoryImpl.getImageByMissionId(userId, missionId),
+                jpaUserRepositoryImpl.getUserNameByUserId(userId).get(0),
+                proofImage,
                 jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId),
                 jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId).get(0),
@@ -127,7 +128,7 @@ public class MissionService {
     }
 
     //이미지 업로드
-    public void postProofImage(PostMissionProofRequest request){
+    public void postProofImage(PostMissionProofRequest request) {
         byte[] imageBytes = ImageUtil.decodeBase64ToBytes(request.image());
         jpaUserRepositoryImpl.postProofImage(request.userId(), request.missionId(), imageBytes);
     }
