@@ -46,7 +46,7 @@ public class MissionService {
         System.out.println(missionId);
         // 카운트, 이미지 받아오기, 장문 설명, url, 조회자가 평가 여부 받아오기
         return new GetMissionDataResponse(missionId,
-                proofImage,
+                /*proofImage*/jpaUserRepositoryImpl.getImageByMissionId(userId, missionId),
                 jpaUserRepositoryImpl.getMissionVerificationCountByMissionIdAndUserId(missionId, userId),
                 jpaUserRepositoryImpl.getMissionTitleByMissionId(missionId).get(0),
                 jpaUserRepositoryImpl.getMissionDescriptionByMissionId(missionId).get(0),
