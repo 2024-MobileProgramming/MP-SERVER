@@ -104,7 +104,9 @@ public class MissionService {
             dailyProofCount = 0;
             for (Integer missionId : dailyMissionIdList) {
                 System.out.println(missionId);
-                if (jpaUserRepositoryImpl.getImageByMissionIdAndUserIdAndDate(request.userId(), missionId, date) != null)
+                System.out.println(jpaUserRepositoryImpl.getImageByMissionIdAndUserIdAndDate(request.userId(), missionId, date).size());
+                if (jpaUserRepositoryImpl.getImageByMissionIdAndUserIdAndDate(request.userId(), missionId, date).size() != 0)//얘가 지금 문제 있어서 고치는중 근데 얘 써야됨 .....
+//                if (jpaUserRepositoryImpl.getImageByMissionId(request.userId(), missionId)!= null) //얘가 되는거
                     dailyProofCount++;
             }
             proofDataList.add(dailyProofCount);
