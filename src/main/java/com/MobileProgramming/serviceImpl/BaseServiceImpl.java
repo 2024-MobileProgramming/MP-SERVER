@@ -106,15 +106,16 @@ public class BaseServiceImpl implements BaseService {
         System.out.println("팀 형성 단계 완료");
 //        모든 팀을 가져옴
         System.out.println("팀 가져오기 완료, 총 팀 개수:" + teamId);
-        for (int j = 0 ; j < teamId; j++) {
-//            팀아이디에 속해있는 모든 유저 아이디 가져오기
+        for (int j = 0; j < teamId; j++) {
+            // 팀아이디에 속해있는 모든 유저 아이디 가져오기
             List<Integer> userIdsByTeamId = jpaUserRepository.getUserIdsByTeamId(j);
-            List<Integer> integers = random5Mission();
-            for (Integer i : userIdsByTeamId) {
-                for (Integer integer : integers) {
-                    System.out.println(i+"유저에게"+integer+"번 미션 할당해주기");
+
+            for (Integer userId : userIdsByTeamId) {
+                List<Integer> userMissions = random5Mission();
+                for (Integer missionId : userMissions) {
+                    System.out.println(userId + "유저에게 " + missionId + "번 미션 할당해주기");
                     Date date = new Date(System.currentTimeMillis());
-                    jpaUserRepository.allocation(new UserMission(i, integer, 0, date));
+                    jpaUserRepository.allocation(new UserMission(userId, missionId, 0, date));
                 }
             }
         }
