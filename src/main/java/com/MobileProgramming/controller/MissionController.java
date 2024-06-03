@@ -9,6 +9,7 @@ import com.MobileProgramming.exception.ErrorMessage;
 import com.MobileProgramming.exception.SuccessMessage;
 import com.MobileProgramming.global.response.ApiResponse;
 import com.MobileProgramming.service.MissionService;
+import com.MobileProgramming.serviceImpl.BaseServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,19 @@ import java.util.List;
 public class MissionController {
     private MissionService missionService;
 
-    public MissionController(MissionService missionService) {
+    private final BaseServiceImpl baseService;
+
+
+    public MissionController(MissionService missionService, BaseServiceImpl baseService) {
         this.missionService = missionService;
+        this.baseService = baseService;
+    }
+
+
+    @GetMapping("/execute")
+    public void execute(){
+        System.out.println("팀매핑");
+        baseService.scheduling();
     }
 
     //미션 1개에 대해 미션에 대한 데이터 get

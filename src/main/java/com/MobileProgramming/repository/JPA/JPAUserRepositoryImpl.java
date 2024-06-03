@@ -38,14 +38,6 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     }
 
 
-    //    .fetch()의 결과는 List<User> 형식
-    @Override
-    public List<User> findUserByName(String name) {
-        return query.selectFrom(user)
-                .where(user.name.eq(name))
-                .fetch();
-    }
-
     @Override
     public List<Mission> getAllMission() {
         return query.selectFrom(mission)
@@ -74,6 +66,7 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .fetch();
     }
 
+
     @Override
     public List<Integer> getUserIdsFromTeamByUserId(int userId) {
         QTeam team = QTeam.team;
@@ -82,7 +75,8 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
                 .where(team.teamId.eq(
                         JPAExpressions.select(team.teamId)
                                 .from(team)
-                                .where(team.userId.eq(userId))
+                                .where(team.userId.eq(userId)
+                                        .and(team.updatedDate.eq(new Date(System.currentTimeMillis()))))
                 ))
                 .fetch();
     }
@@ -205,13 +199,13 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     public List<Integer> getUserIdsByTeamId(int teamId) {
         return query.select(team.userId)
                 .from(team)
-                .where(team.teamId.eq(teamId))
+                .where(team.teamId.eq(teamId).and(team.updatedDate.eq(new Date(System.currentTimeMillis()))))
                 .fetch();
     }
 
     @Override
     public List<String> getUserNameByUserId(int userId) {
-        return query.select(user.name)
+        return query.select(user.nickname)
                 .from(user)
                 .where(user.userId.eq(userId))
                 .fetch();
@@ -251,5 +245,21 @@ public class JPAUserRepositoryImpl implements JPAUserRepository {
     public void postProofImage(int userId, int missionId, byte[] image){
         MissionProof missionProof = new MissionProof(userId, missionId, image, "null", new Date(System.currentTimeMillis()));
         em.persist(missionProof);
+    }
+
+    @Override
+    public List<Integer> findUserIdByEmail(String email) {
+        return query.select(user.userId)
+                .from(user)
+                .where(user.email.eq(email))
+                .fetch();
+    }
+
+    @Override
+    public List<String> findUserEmailByUserId(int userId) {
+        return query.select(user.email)
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetch();
     }
 }
