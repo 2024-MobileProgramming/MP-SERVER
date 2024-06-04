@@ -4,7 +4,7 @@
 
 | 최민영 | 권하림 |
 |:----------|:----------|
-| <img src="https://github.com/codingmy/server-self-study/assets/97686638/f79e5feb-a0b3-4e38-96b3-cc1a938d7b74" width="300" /> |  ![a8845c1f-e2e0-4741-891a-f0f45cf61260](https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/ad6dacaf-f276-4326-8516-c95e1487e2c0) |
+| <img src="https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/f09cd579-9677-45c8-90f0-5a1b8c5dd8c3" width="300" /> |  <img src="https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/ad6dacaf-f276-4326-8516-c95e1487e2c0" width="300" /> |
 |[@codingmy](https://github.com/codingmy, "codingmy")|[@KwonHalim](https://github.com/KwonHalim, "KwonHalim")
 | 깃헙, Swagger, 컨벤션 초기 세팅| AWS 세팅 및 서버 배포 |
 | ERD, 엔티티 설계 | ERD, 엔티티 설계|
@@ -13,16 +13,16 @@
    
 
 ## **Architecture**
-<img src="https://github.com/codingmy/server-self-study/assets/97686638/bf8ba5e6-3060-4335-8103-80816ab5bbd5"/>
+<img src="https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/ec09de27-9167-4e21-bc81-562373f8624f"/>
 
 
 
 ## **ER Diagram**
-<img src="https://github.com/codingmy/server-self-study/assets/97686638/ed962734-8e71-4c61-bc68-e40ac6d863d6/>
+<img src="https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/28614cfa-e374-4dda-bad0-10de19e8427b"/>
 
 ## **API Docs**
 
-<img src="https://github.com/codingmy/server-self-study/assets/97686638/7218d2ad-25ba-406c-b686-0bebb85d3c5b/>
+<img src="https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/0e4a4655-d190-49d7-98ab-0963eb20ec7d"/>
 
 
 ## **Directory**
