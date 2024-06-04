@@ -1,6 +1,6 @@
 # Gabbit
 
-## **Contributor** 
+## **Contributor**  
 
 | 최민영 | 권하림 |
 |:----------|:----------|
