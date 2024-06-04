@@ -4,7 +4,7 @@
 
 | 최민영 | 권하림 |
 |:----------|:----------|
-| <img src="https://github.com/codingmy/server-self-study/assets/97686638/f79e5feb-a0b3-4e38-96b3-cc1a938d7b74" width="300" /> |  <img src="https://github.com/codingmy/server-self-study/assets/97686638/a8845c1f-e2e0-4741-891a-f0f45cf61260" width="300" /> |
+| <img src="https://github.com/codingmy/server-self-study/assets/97686638/f79e5feb-a0b3-4e38-96b3-cc1a938d7b74" width="300" /> |  ![a8845c1f-e2e0-4741-891a-f0f45cf61260](https://github.com/2024-MobileProgramming/MP-Server/assets/97686638/ad6dacaf-f276-4326-8516-c95e1487e2c0) |
 |[@codingmy](https://github.com/codingmy, "codingmy")|[@KwonHalim](https://github.com/KwonHalim, "KwonHalim")
 | 깃헙, Swagger, 컨벤션 초기 세팅| AWS 세팅 및 서버 배포 |
 | ERD, 엔티티 설계 | ERD, 엔티티 설계|
