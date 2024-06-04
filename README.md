@@ -4,7 +4,7 @@
 
 | 최민영 | 권하림 |
 |:----------|:----------|
-|![image](https://github.com/codingmy/server-self-study/assets/97686638/f79e5feb-a0b3-4e38-96b3-cc1a938d7b74)| ![image](https://github.com/codingmy/server-self-study/assets/97686638/a8845c1f-e2e0-4741-891a-f0f45cf61260)|
+| <img src="https://github.com/codingmy/server-self-study/assets/97686638/f79e5feb-a0b3-4e38-96b3-cc1a938d7b74" width="300" /> |  <img src="https://github.com/codingmy/server-self-study/assets/97686638/a8845c1f-e2e0-4741-891a-f0f45cf61260" width="300" /> |
 |[@codingmy](https://github.com/codingmy, "codingmy")|[@KwonHalim](https://github.com/KwonHalim, "KwonHalim")
 | 깃헙, Swagger, 컨벤션 초기 세팅| AWS 세팅 및 서버 배포 |
 | ERD, 엔티티 설계 | ERD, 엔티티 설계|
@@ -13,17 +13,16 @@
    
 
 ## **Architecture**
-
-![image](https://github.com/codingmy/server-self-study/assets/97686638/bf8ba5e6-3060-4335-8103-80816ab5bbd5)
+<img src="https://github.com/codingmy/server-self-study/assets/97686638/bf8ba5e6-3060-4335-8103-80816ab5bbd5"/>
 
 
 
 ## **ER Diagram**
-![image](https://github.com/codingmy/server-self-study/assets/97686638/ed962734-8e71-4c61-bc68-e40ac6d863d6)
+<img src="https://github.com/codingmy/server-self-study/assets/97686638/ed962734-8e71-4c61-bc68-e40ac6d863d6/>
 
 ## **API Docs**
 
-![image](https://github.com/codingmy/server-self-study/assets/97686638/7218d2ad-25ba-406c-b686-0bebb85d3c5b)
+<img src="https://github.com/codingmy/server-self-study/assets/97686638/7218d2ad-25ba-406c-b686-0bebb85d3c5b/>
 
 
 ## **Directory**
